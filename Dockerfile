@@ -1,4 +1,4 @@
-FROM lgd_bundle_docker
+FROM lgd_bundler_docker
 
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN bundle config --global frozen 1
