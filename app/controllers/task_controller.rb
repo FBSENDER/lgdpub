@@ -64,7 +64,7 @@ class TaskController < ApplicationController
         detail.wx = params[:wx]
         detail.save
       end
-      redirect_to action: :show_task_kuaidi, id: task.id
+      redirect_to action: :show, id: task.id
     rescue
       redirect_to action: :create_task_kuaidi, message: "创建任务失败", company: params[:company], from: params[:from], to: params[:to], remark: params[:remark], phone: params[:phone], qq: params[:qq], wx: params[:wx]
     end
@@ -107,7 +107,7 @@ class TaskController < ApplicationController
         detail.wx = params[:wx]
         detail.save
       end
-      redirect_to action: :show_task_daike, id: task.id
+      redirect_to action: :show, id: task.id
     rescue
       redirect_to action: :create_task_daike, message: "创建任务失败",  remark: params[:remark], phone: params[:phone], qq: params[:qq], wx: params[:wx]
     end

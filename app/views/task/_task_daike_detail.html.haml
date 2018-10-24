@@ -2,3 +2,5 @@
 %p 要求：#{@detail.gender == 1 ? "男" : "女"}
 %p 代课费：#{@detail.price}元
 %p 发布时间：#{@detail.created_at.localtime}
+- if !@detail.remark.nil? && !@detail.remark.empty?
+  %p 备注：#{@detail.remark}
