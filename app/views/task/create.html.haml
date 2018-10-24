@@ -1,0 +1,17 @@
+.my-container.mt-2
+  .header 
+    %p 发布任务 - 选择任务类型
+  .container
+    .columns
+      .col-9.col-mx-auto
+        %a.btn.btn-primary.col-12{href: "/task/create_task_kuaidi"} 代取快递
+        .mt-2
+        %a.btn.btn-primary.col-12{href: "/task/create_task_daike"} 代课任务
+        .mt-2
+        %p.text-center
+          %mark 更多任务类型，敬请期待...
+        - if @account.nil?
+          %p.text-center
+            %a{href: "/account/sign_in/"}
+              %u 登陆后，可以发布和领取任务
+

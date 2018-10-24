@@ -1,0 +1,47 @@
+.my-container.mt-2
+  .header 
+    %p 发布任务 - 代取快递
+  .container
+    .columns
+      .col-9.col-mx-auto
+        = form_tag("/task/create_task_kuaidi", method: "post", onsubmit: "return create_kuaidi();") do 
+          %label.form-label 快递公司
+          %input#in_company.form-input{type: "text", placeholder: "快递公司", name: "company",value: "#{@company}"}
+          %p#in_company_p.form-input-hint.hide
+          .m-2
+          %label.form-label 取件地点
+          %input#in_from.form-input{type: "text", placeholder: "取快递地点", name: "from", value: "#{@from}"}
+          %p#in_from_p.form-input-hint.hide
+          .m-2
+          %label.form-label 送件地点
+          %input#in_to.form-input{type: "text", placeholder: "送快递地点", name: "to", value: "#{@to}"}
+          %p#in_to_p.form-input-hint.hide
+          .m-2
+          %label.form-label 跑腿费
+          %select.form-select{name: "price"}
+            %option 1元
+            %option 2元
+            %option 3元
+            %option 4元
+            %option 5元
+            %option 6元
+            %option 7元
+            %option 8元
+            %option 9元
+            %option 10元
+          .m-2
+          %label.form-label 备注
+          %input#in_remark.form-input{type: "text", placeholder: "备注 可不填", name: "phone",value: "#{@remark}"}
+          .m-2
+          %label.form-label 联系方式(至少留一种)
+          %input#in_phone.form-input{type: "text", placeholder: "电话号码", name: "phone", value: "#{@phone}"}
+          %p#in_phone_p.form-input-hint.hide
+          .m-2
+          %input#in_qq.form-input{type: "text", placeholder: "QQ号", name: "qq", value: "#{@qq}"}
+          .m-2
+          %input#in_wx.form-input{type: "text", placeholder: "微信号", name: "wx", value: "#{@wx}"}
+          #message.has-error{class: "#{@message.empty? ? 'hide' : ''}"}
+            %p.form-input-hint #{@message}
+          .m-2
+          %input.col-12.btn.btn-primary{type: "submit",value: "发布"}
+        .m-2

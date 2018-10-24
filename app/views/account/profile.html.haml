@@ -1,0 +1,36 @@
+.my-container.mt-2
+  .header 
+    %p 资料设置
+  .container
+    .columns
+      .col-9.col-mx-auto
+        = form_tag("/account/profile", method: "post") do
+          %input.form-input{type: "text", placeholder: "用户名 - 将展示给其他用户", name: "user_name"}
+          .m-2
+          %input.form-input{type: "text", placeholder: "真实姓名", name: "real_name"}
+          .m-2
+          %select.form-select{name: "degree"}
+            %option 选择在读学位
+            %option 本科
+            %option 研究生
+          .m-2
+          %select.form-select{name: "grade"}
+            %option 选择入学年份
+            %option 2015
+            %option 2016
+            %option 2017
+            %option 2018
+          .m-2
+          %select.form-select{name: "college"}
+            %option 选择学院
+            %option 软件学院
+          .m-2
+          #message.has-error{class: "#{@message.empty? ? 'hide' : ''}"}
+            %p.form-input-hint #{@message}
+          .m-2
+          %input.col-12.btn.btn-primary{type: "submit", value: "更新资料"}
+        .m-2{style: "height:1px;"}
+        .m-2{style: "height:1px;"}
+        .text-center.text-gray 
+          %p 
+            %small 更新真实资料并认证后， 可以领取高级任务

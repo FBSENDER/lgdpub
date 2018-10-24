@@ -1,0 +1,22 @@
+.my-container.mt-2
+  .header 
+    %p 用户登录
+  .container
+    .columns
+      .col-9.col-mx-auto
+        = form_tag("/account/sign_in", method: "post", onsubmit: "return sign_in();") do
+          %input#in_phone.form-input{type: "text", placeholder: "手机号", name: "phone"}
+          %p#in_phone_p.form-input-hint.hide
+          .m-2
+          %input#in_password.form-input{type: "password", placeholder: "密码", name: "password"}
+          %p#in_password_p.form-input-hint.hide
+          .m-2
+          %label.form-checkbox
+            %input{type: "checkbox", name: "remember"}
+            %i.form-icon 
+            记录登录状态(60天)
+          #message.has-error{class: "#{@message.empty? ? 'hide' : ''}"}
+            %p.form-input-hint #{@message}
+          .m-2
+          %input.col-12.btn.btn-primary{type: "submit", value: "登陆"}
+          .m-2

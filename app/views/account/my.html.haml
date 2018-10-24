@@ -1,0 +1,49 @@
+.my-container.mt-2{style: "padding:0;"}
+  .panel
+    .panel-header
+      .panel-title.h5.text-center.m-10  用户 #{@account.phone}
+      .panel-subtitle
+        .columns
+          .col-4.text-center
+            %a.btn.btn-link{href: "/account/password_new/"} 
+              %u.text-gray 更新密码
+          .col-4.text-center
+            %a.btn.btn-link{href: "/account/profile/"} 
+              %u.text-gray 更新资料
+          .col-4.text-center
+            %a.btn.btn-link{href: "/account/sign_out/"} 
+              %u.text-gray 退出登陆
+      - if @message != ""
+        .toast.toast-success.mt-2
+          %button.btn.btn-clear.float-right{onclick: "toast_hide(this);"}
+          #{@message}
+    .panel-nav
+      %ul.tab.tab-block
+        %li.tab-item.active
+          %a{href: "javascript:;", onclick:"$('#my_published').removeClass('hide');$('#my_taked').addClass('hide');$('li').removeClass('active');$(this).parent('li').addClass('active');"} 我发布的任务
+        %li.tab-item
+          %a{href: "javascript:;", onclick:"$('#my_taked').removeClass('hide');$('#my_published').addClass('hide');$('li').removeClass('active');$(this).parent('li').addClass('active');"} 我领取的任务
+#my_published
+  - if @my_published_tasks.size > 0
+    .task-list
+      - @my_published_tasks.each do |t|
+        %a.text-dark{href: "/task/#{t.id}/"}
+          .task-item
+            %i.icon.icon-arrow-right
+            %p.header #{t.title}
+            %p.detail #{t.subtitle}
+  - else
+    .my-container.mt-2{style: "padding: 1rem;"}
+      %p.h5.text-center 还没有发布过任务...
+#my_taked.hide
+  - if @my_taked_tasks.size > 0
+    .task-list
+      - @my_taked_tasks.each do |t|
+        %a.text-dark{href: "/task/#{t.id}/"}
+          .task-item
+            %i.icon.icon-arrow-right
+            %p.header #{t.title}
+            %p.detail #{t.subtitle}
+  - else
+    .my-container.mt-2{style: "padding: 1rem;"}
+      %p.h5.text-center 还没有领取过任务...

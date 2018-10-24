@@ -1,0 +1,13 @@
+.my-container.mt-2
+  .header 
+    %p 反馈信息
+  .container
+    .columns
+      .col-9.col-mx-auto
+        = form_tag("/feedback", method: "post", onsubmit: "return do_feedback();") do
+          %textarea#content.form-input{rows: "8",name: "content",placeholder: "输入反馈内容"}
+          #message.has-error{class: "#{@message.empty? ? 'hide' : ''}"}
+            %p.form-input-hint #{@message}
+          .m-2
+          %input.col-12.btn.btn-primary{type: "submit", value: "提交"}
+          .m-2

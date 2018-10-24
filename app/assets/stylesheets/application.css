@@ -1,0 +1,85 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+body{
+  background-color: #F7F7F7;
+}
+header{
+  background-color: #fff;
+  height: 2.5rem;
+}
+.hide{
+  display: none;
+}
+.form-input-hint{
+  padding: .2rem 0 0 .2rem;
+  margin: 0;
+}
+.form-label{
+  padding: .2rem .4rem;
+}
+.my-container{
+  background-color: #fff;
+  width: 96%;
+  padding: 0 0 .8rem 0;
+  margin: 0 2%;
+}
+.my-container .header{
+  background-color: #fff;
+  text-align:center;
+  line-height: 2rem;
+  height: 2rem;
+  margin-bottom: .8rem;
+  border-bottom: 1px solid #e7e9ed;
+}
+.form-input{
+  border-radius: 0.25rem;
+}
+.form-select{
+  border-radius: 0.25rem;
+}
+.btn{
+  border-radius: 0.25rem;
+}
+.task-list{
+  background-color: #fff;
+  width: 96%;
+  padding: 0;
+  margin: .4rem 2%;
+}
+.task-list .task-item{
+  padding: .4rem;
+  border-bottom: .2rem solid #F7F7F7;
+  height: 87px;
+}
+.task-list .task-item i{
+  float: right;
+  height: 0;
+  position: relative;
+  top: 37px;
+}
+.task-list .task-item .header{
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 40px;
+  height: 40px;
+  margin: 0;
+}
+.task-list .task-item .detail{
+  font-size: 18px;
+  line-height: 30px;
+  height: 30px;
+  margin: 0;
+}

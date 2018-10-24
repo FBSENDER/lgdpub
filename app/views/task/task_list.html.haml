@@ -1,0 +1,13 @@
+- if @tasks.size.zero?
+  .my-container.mt-2
+    %p.h5.text-center{style: "padding:1rem;"} 目前没有待领取的任务
+    %p.h5.text-center
+      %a{href: "/task/create/"} 
+        %u 去发布
+.task-list
+  - @tasks.each do |t|
+    %a.text-dark{href: "/task/#{t.id}/"}
+      .task-item
+        %i.icon.icon-arrow-right
+        %p.header #{t.title}
+        %p.detail #{t.subtitle}

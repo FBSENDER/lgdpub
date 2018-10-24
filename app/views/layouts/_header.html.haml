@@ -1,0 +1,11 @@
+%header.navbar
+  %section.navbar-section
+    %a.navbar-brand.ml-2{href: "/"} LGD.PUB
+    %a.btn.btn-link{href: "/task/"} 任务大厅
+    %a.btn.btn-link{href: "/task/create/"} 发布任务
+  %section.navbar-section
+    - if @account
+      %a.btn.btn-link{href: "/account/my/"} 我的LGD
+    - else
+      %a.btn.btn-link{href: "/account/sign_in/"} 登录
+      %a.btn.btn-link{href: "/account/sign_up/"} 注册

@@ -1,0 +1,4 @@
+%p 代课时间：#{@detail.class_date} #{@detail.class_time}#{@detail.class_count} 
+%p 要求：#{@detail.gender == 1 ? "男" : "女"}
+%p 代课费：#{@detail.price}元
+%p 发布时间：#{@detail.created_at.localtime}
