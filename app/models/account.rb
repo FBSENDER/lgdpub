@@ -10,3 +10,7 @@ end
 class Feedback < ApplicationRecord
   self.table_name = 'lgd_feedbacks'
 end
+
+class SendCode < ApplicationRecord
+  self.table_name = 'lgd_send_code'
+end

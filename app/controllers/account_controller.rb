@@ -102,7 +102,11 @@ class AccountController < ApplicationController
         render json: {status: 0}
         return
       end
-      `python lib/dysms_python/lgd_sms_send.py #{phone} #{code} >> log/lgd_sms.log`
+      s = SendCode.where(phone: phone).take || SendCode.new
+      s.phone = phone
+      s.code = code
+      s.status = 0
+      s.save
       render json: {status: 1}
     rescue
       logger.info "sendcode error: #{params[:phone]} #{params[:code]} "
