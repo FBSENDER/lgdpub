@@ -13,6 +13,17 @@
 //= require rails-ujs
 //= require_tree .
 
+function create_other_reset(){
+  $("#in_phone").removeClass("is-error");
+  $("#in_phone_p").html("").addClass("hide");
+  $("#message").addClass("hide");
+}
+
+function create_jianzhi_reset(){
+  $("#in_phone").removeClass("is-error");
+  $("#in_phone_p").html("").addClass("hide");
+  $("#message").addClass("hide");
+}
 function create_daike_reset(){
   $("#in_phone").removeClass("is-error");
   $("#in_phone_p").html("").addClass("hide");
@@ -64,10 +75,11 @@ function send_check_code(phone_input){
   }
   var c = get_check_code();
   $("#in_code_confirm").val(c);
-  alert(c);
   $("#sending_code").removeClass("hide");
   $("#send_code").addClass("hide");
   send_check_code_count_down(60);
+  $.get("/account/send_code",{phone: phone, code: c}, function(data){
+  });
 }
 function send_check_code_count_down(num){
   $("#sending_code").html("重新发送" + num + "秒");
@@ -131,6 +143,82 @@ function sign_in(){
   return true;
 }
 
+function create_other(){
+  create_other_reset();
+  var title = $.trim($("#in_title").val());
+  var subtitle = $.trim($("#in_subtitle").val());
+  var phone = $.trim($("#in_phone").val());
+  var qq = $.trim($("#in_qq").val());
+  var wx = $.trim($("#in_wx").val());
+  if(title == ""){
+    $("#message").children("p").html("请输入任务概要");
+    $("#message").removeClass("hide");
+    return false;
+  }
+  if(subtitle == ""){
+    $("#message").children("p").html("请输入任务详情");
+    $("#message").removeClass("hide");
+    return false;
+  }
+  if(phone == "" && qq == "" && wx == ""){
+    $("#message").children("p").html("至少留一种联系方式");
+    $("#message").removeClass("hide");
+    return false;
+  }
+  if(phone != ""){
+    var r = check_phone(phone);
+    if(r != ""){
+      $("#in_phone").addClass("is-error");
+      $("#in_phone_p").html(r).removeClass("hide");
+      return false;
+    }
+  }
+  return true;
+}
+function create_jianzhi(){
+  create_jianzhi_reset();
+  var content = $.trim($("#in_content").val());
+  var price = $.trim($("#in_price").val());
+  var place = $.trim($("#in_place").val());
+  var work_time = $.trim($("#in_work_time").val());
+  var phone = $.trim($("#in_phone").val());
+  var qq = $.trim($("#in_qq").val());
+  var wx = $.trim($("#in_wx").val());
+  if(content == ""){
+    $("#message").children("p").html("请输入兼职类型");
+    $("#message").removeClass("hide");
+    return false;
+  }
+  if(place == ""){
+    $("#message").children("p").html("请输入工作地点");
+    $("#message").removeClass("hide");
+    return false;
+  }
+  if(work_time == ""){
+    $("#message").children("p").html("请输入工作时段");
+    $("#message").removeClass("hide");
+    return false;
+  }
+  if(price == ""){
+    $("#message").children("p").html("请输入薪资");
+    $("#message").removeClass("hide");
+    return false;
+  }
+  if(phone == "" && qq == "" && wx == ""){
+    $("#message").children("p").html("至少留一种联系方式");
+    $("#message").removeClass("hide");
+    return false;
+  }
+  if(phone != ""){
+    var r = check_phone(phone);
+    if(r != ""){
+      $("#in_phone").addClass("is-error");
+      $("#in_phone_p").html(r).removeClass("hide");
+      return false;
+    }
+  }
+  return true;
+}
 function create_kuaidi(){
   create_kuaidi_reset();
   var company = $.trim($("#in_company").val());

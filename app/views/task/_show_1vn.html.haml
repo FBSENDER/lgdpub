@@ -1,0 +1,26 @@
+.my-container.mt-2
+  .header 
+    %p #{@task.task_type == 3 ? '兼职招聘' : ''}
+  .container
+    .columns
+      .col-9.col-mx-auto
+        - if @task.task_type == 3
+          = render partial: "task_jianzhi_detail"
+        - elsif @task.task_type == 99
+          = render partial: "task_other_detail"
+        - if @account.nil?
+          %p.text-center
+            %mark 登陆后才可以查看联系方式，去
+            %a{href: "/account/sign_in/"} 
+              %u 登陆
+        - elsif @account.id == @task.created_user
+          - if @task.status == 0
+            %a.col-12.btn.btn-success.float-right{href: "/task/#{@task.id}/confirm/"} 结束发布
+
+        - elsif @account.id != @task.created_user
+          - unless @detail.phone.empty?
+            %p 联系手机：#{@detail.phone}
+          - unless @detail.qq.empty?
+            %p 联系QQ：#{@detail.qq}
+          - unless @detail.wx.empty?
+            %p 联系微信：#{@detail.wx}

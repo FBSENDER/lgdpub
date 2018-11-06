@@ -1,0 +1,13 @@
+%p 兼职内容：#{@detail.content}
+%p 工作地点：#{@detail.place}
+%p 工作时段：#{@detail.work_time}
+%p 薪资：#{@detail.price}
+- if @detail.gender > 0
+  %p 要求：#{@detail.gender == 1 ? "男" : "女"}
+- if !@detail.remark.nil? && !@detail.remark.empty?
+  %p 备注：#{@detail.remark}
+%p 发布时间：#{@detail.created_at.localtime}
+- if @task.status == 0
+  %p.text-success 招聘中
+- elsif @task.status == 2
+  %p.text-success 已招聘完成

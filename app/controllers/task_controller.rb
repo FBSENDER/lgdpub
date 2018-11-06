@@ -28,6 +28,36 @@ class TaskController < ApplicationController
     @qq = params[:qq]
   end
 
+  def create_task_jianzhi
+    @message = params[:message].nil? ? "" : params[:message]
+    unless account = is_login?
+      redirect_to controller: :account, action: :sign_in, message: "请先登陆"
+      return
+    end
+    @account = account
+    @remark = params[:remark]
+    @phone = params[:phone].nil? || params[:phone].empty? ? account.phone : params[:phone]
+    @wx = params[:wx]
+    @qq = params[:qq]
+    @content = params[:content]
+    @place = params[:place]
+    @work_time = params[:work_time]
+    @price = params[:price]
+  end
+
+  def create_task_other
+    @message = params[:message].nil? ? "" : params[:message]
+    unless account = is_login?
+      redirect_to controller: :account, action: :sign_in, message: "请先登陆"
+      return
+    end
+    @account = account
+    @remark = params[:remark]
+    @phone = params[:phone].nil? || params[:phone].empty? ? account.phone : params[:phone]
+    @wx = params[:wx]
+    @qq = params[:qq]
+  end
+
   def do_create_task_kuaidi
     unless account = is_login?
       redirect_to controller: :account, action: :sign_in, message: "请先登陆"
@@ -113,6 +143,87 @@ class TaskController < ApplicationController
     end
   end
 
+  def do_create_task_jianzhi
+    unless account = is_login?
+      redirect_to controller: :account, action: :sign_in, message: "请先登陆"
+      return
+    end
+    begin
+      count = Task.where(created_user: account.id, status: [0,1]).count
+      if(count >= 5)
+        redirect_to action: :create_task_jianzhi, message: "单用户发布任务不得超过5条", remark: params[:remark], phone: params[:phone], qq: params[:qq], wx: params[:wx], content: params[:content], place: params[:place], work_time: params[:work_time], price: params[:price]
+        return
+      end
+      if(params[:phone].empty? && params[:qq].empty? && params[:wx].empty?)
+        redirect_to action: :create_task_jianzhi, message: "请留至少一种联系方式", remark: params[:remark], phone: params[:phone], qq: params[:qq], wx: params[:wx], content: params[:content], place: params[:place], work_time: params[:work_time], price: params[:price]
+        return
+      end
+      task = Task.new
+      task.task_type = 3
+      task.title = "兼职 - #{params[:content]}"
+      task.subtitle = "#{params[:place]} #{params[:work_time]} #{params[:price]} 要求：#{params[:gender]}"
+      task.price = 0
+      task.created_user = account.id
+      task.transaction do
+        task.save
+        detail = TaskJianzhi.new
+        detail.task_id = task.id
+        detail.price = params[:price]
+        detail.gender = params[:gender] == "不限" ? 0 : params[:gender] == "男" ?  1 : 2
+        detail.content = params[:content]
+        detail.place = params[:place]
+        detail.work_time = params[:work_time]
+        detail.remark = params[:remark]
+        detail.phone = params[:phone]
+        detail.qq = params[:qq]
+        detail.wx = params[:wx]
+        detail.save
+      end
+      redirect_to action: :show, id: task.id
+    rescue
+      redirect_to action: :create_task_jianzhi, message: "创建任务失败", remark: params[:remark], phone: params[:phone], qq: params[:qq], wx: params[:wx], content: params[:content], place: params[:place], work_time: params[:work_time], price: params[:price]
+    end
+  end
+
+  def do_create_task_other
+    unless account = is_login?
+      redirect_to controller: :account, action: :sign_in, message: "请先登陆"
+      return
+    end
+    begin
+      count = Task.where(created_user: account.id, status: [0,1]).count
+      if(count >= 5)
+        redirect_to action: :create_task_other, message: "单用户发布任务不得超过5条", remark: params[:remark], phone: params[:phone], qq: params[:qq], wx: params[:wx], title: params[:title], subtitle: params[:subtitle]
+        return
+      end
+      if(params[:phone].empty? && params[:qq].empty? && params[:wx].empty?)
+        redirect_to action: :create_task_other, message: "请留至少一种联系方式", remark: params[:remark], phone: params[:phone], qq: params[:qq], wx: params[:wx], title: params[:title], subtitle: params[:subtitle]
+        return
+      end
+      task = Task.new
+      task.task_type = 99
+      task.title = params[:title]
+      task.subtitle = params[:subtitle]
+      task.price = 0
+      task.created_user = account.id
+      task.transaction do
+        task.save
+        detail = TaskOther.new
+        detail.task_id = task.id
+        detail.title = params[:title]
+        detail.subtitle = params[:subtitle]
+        detail.remark = params[:remark]
+        detail.phone = params[:phone]
+        detail.qq = params[:qq]
+        detail.wx = params[:wx]
+        detail.save
+      end
+      redirect_to action: :show, id: task.id
+    rescue
+      redirect_to action: :create_task_other, message: "创建任务失败", remark: params[:remark], phone: params[:phone], qq: params[:qq], wx: params[:wx], title: params[:title], subtitle: params[:subtitle]
+    end
+  end
+
   def show
     @task = Task.where(id: params[:id].to_i).take
     not_found if @task.nil?
@@ -129,6 +240,12 @@ class TaskController < ApplicationController
       not_found if @detail.nil?
     elsif @task.task_type == 2
       @detail = TaskDaike.where(task_id: @task.id).take
+      not_found if @detail.nil?
+    elsif @task.task_type == 3
+      @detail = TaskJianzhi.where(task_id: @task.id).take
+      not_found if @detail.nil?
+    elsif @task.task_type == 99
+      @detail = TaskOther.where(task_id: @task.id).take
       not_found if @detail.nil?
     else
       not_found
@@ -212,7 +329,7 @@ class TaskController < ApplicationController
       redirect_to "/account/sign_in/"
       return
     end
-    task = Task.where(id: params[:id].to_i, status: 1).take
+    task = Task.where(id: params[:id].to_i, status: [0,1]).take
     not_found if task.nil?
     if task.created_user != @account.id
       redirect_to "/task/#{task.id}/"

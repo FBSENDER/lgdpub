@@ -1,6 +1,17 @@
 .my-container.mt-2{style: "padding:0;"}
   .panel
     .panel-header
+      .col-12.text-center
+        - if @account.detail.nil?
+          %figure.avatar.avatar-xl{style: "background-color: #5755d9;", data:{initial: "LGD"}}
+        - elsif !@account.detail.avatar.nil? && !@account.detail.avatar.empty?
+          %figure.avatar.avatar-xl
+            %img{src: "#{@detail.detail.avatar}"}
+        - elsif !@account.detail.user_name.nil? && !@account.detail.user_name.empty?
+          %figure.avatar.avatar-xl{style: "background-color: #5755d9;", data:{initial: "#{@account.detail.user_name[0]}"}}
+        - else
+          %figure.avatar.avatar-xl{style: "background-color: #5755d9;", data:{initial: "LGD"}}
+      .mt-2
       .panel-title.h5.text-center.m-10  用户 #{@account.phone}
       .panel-subtitle
         .columns

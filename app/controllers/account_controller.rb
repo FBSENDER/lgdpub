@@ -94,6 +94,22 @@ class AccountController < ApplicationController
     redirect_to action: :my, message: "密码重置成功"
   end
 
+  def send_code
+    begin
+      phone = params[:phone].strip 
+      code = params[:code].strip
+      unless phone =~ /^(14[0-9]|13[0-9]|15[0-9]|17[0-9]|18[0-9])\d{8}$$/
+        render json: {status: 0}
+        return
+      end
+      `python ~/dysms_python/lgd_sms_send_#{num}.py #{phone} #{code} >> lgd_sms.log`
+      render json: {status: 1}
+    rescue
+      logger.info "sendcode error: #{params[:phone]} #{params[:code]} "
+      render json: {status: 0}
+    end
+  end
+
   def profile
     unless account = is_login?
       redirect_to action: :sign_in

@@ -13,3 +13,11 @@ end
 class TaskDaike < ApplicationRecord
   self.table_name = 'lgd_task_daike'
 end
+
+class TaskJianzhi < ApplicationRecord
+  self.table_name = 'lgd_task_jianzhi'
+end
+
+class TaskOther < ApplicationRecord
+  self.table_name = 'lgd_task_other'
+end

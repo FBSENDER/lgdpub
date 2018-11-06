@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   post "/account/password_new", to: "account#do_password_new"
   get "/account/profile", to: "account#profile"
   post "/account/profile", to: "account#update_profile"
+  get "/account/send_code", to: "account#send_code"
 
   # task
   get "/task", to: "task#task_list"
@@ -19,6 +20,12 @@ Rails.application.routes.draw do
   get "/task/create_task_daike", to: "task#create_task_daike"
   post "/task/create_task_daike", to: "task#do_create_task_daike"
   get "/task/show_task_daike", to: "task#show_task_daike"
+  get "/task/create_task_jianzhi", to: "task#create_task_jianzhi"
+  post "/task/create_task_jianzhi", to: "task#do_create_task_jianzhi"
+  get "/task/show_task_jianzhi", to: "task#show_task_jianzhi"
+  get "/task/create_task_other", to: "task#create_task_other"
+  post "/task/create_task_other", to: "task#do_create_task_other"
+  get "/task/show_task_other", to: "task#show_task_other"
   get "/task/:id", to: "task#show", id: /\d+/
   get "/task/:id/take", to: "task#take", id: /\d+/
   get "/task/:id/delete", to: "task#delete", id: /\d+/

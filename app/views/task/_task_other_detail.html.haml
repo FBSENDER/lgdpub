@@ -1,0 +1,9 @@
+%p 任务概要：#{@detail.title}
+%p 任务详情：#{@detail.subtitle}
+- if !@detail.remark.nil? && !@detail.remark.empty?
+  %p 备注：#{@detail.remark}
+%p 发布时间：#{@detail.created_at.localtime}
+- if @task.status == 0
+  %p.text-success 任务发布中
+- elsif @task.status == 2
+  %p.text-success 任务已结束
