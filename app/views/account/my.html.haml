@@ -6,7 +6,7 @@
           %figure.avatar.avatar-xl{style: "background-color: #5755d9;", data:{initial: "LGD"}}
         - elsif !@account.detail.avatar.nil? && !@account.detail.avatar.empty?
           %figure.avatar.avatar-xl
-            %img{src: "#{@detail.detail.avatar}"}
+            %img{src: "#{@account.detail.avatar}"}
         - elsif !@account.detail.user_name.nil? && !@account.detail.user_name.empty?
           %figure.avatar.avatar-xl{style: "background-color: #5755d9;", data:{initial: "#{@account.detail.user_name[0]}"}}
         - else

@@ -121,6 +121,8 @@ class AccountController < ApplicationController
     end
     @account = account
     @message = params[:message].nil? ? "" : params[:message]
+    @token = Token.take
+    @colleges = $colleges
   end
 
   def update_profile
@@ -133,6 +135,7 @@ class AccountController < ApplicationController
         account.detail = AccountDetail.new
         account.detail.user_id = account.id
       end
+      account.detail.avatar = params[:avatar]
       account.detail.user_name = params[:user_name].strip
       account.detail.real_name = params[:real_name].strip
       account.detail.degree = params[:degree] == '本科' ? 1 : params[:degree] == '研究生' ? 2 : 0

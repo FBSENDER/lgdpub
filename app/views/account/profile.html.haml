@@ -4,26 +4,51 @@
   .container
     .columns
       .col-9.col-mx-auto
+        .col-12.text-center#account{data: {id: "#{@account.id}"}}
+          - if @account.detail.nil?
+            %figure.avatar.avatar-lg{style: "background-color: #5755d9;", data:{initial: "LGD"}}
+              %img#avatar
+          - elsif !@account.detail.avatar.nil? && !@account.detail.avatar.empty?
+            %figure.avatar.avatar-lg
+              %img#avatar{src: "#{@account.detail.avatar}"}
+          - elsif !@account.detail.user_name.nil? && !@account.detail.user_name.empty?
+            %figure.avatar.avatar-lg{style: "background-color: #5755d9;", data:{initial: "#{@account.detail.user_name[0]}"}}
+              %img#avatar
+          - else
+            %figure.avatar.avatar-lg{style: "background-color: #5755d9;", data:{initial: "LGD"}}
+              %img#avatar
+        .m-2
+        %p.text-center.text-gray.my-2
+          %small#ossfile.hide 文件
+        .bar.bar-sm.my-2.hide#pro
+          .bar-item.hide#file_progress{style: "width:0;"}
+        #ossfile
+        #container
+          %a#selectfiles.btn{href: "javascript:void(0);",style: "width:49%;"} 选择图片
+          %a#postfiles.btn.float-right{href: "javasript:void(0);",style: "width:49%;"} 上传头像
         = form_tag("/account/profile", method: "post") do
-          %input.form-input{type: "text", placeholder: "用户名 - 将展示给其他用户", name: "user_name"}
           .m-2
-          %input.form-input{type: "text", placeholder: "真实姓名", name: "real_name"}
+          %input#in_avatar.form-input.hide{type: "text", name: "avatar", value: "#{@account.detail.avatar}"}
+          %input.form-input{type: "text", placeholder: "用户名 - 将展示给其他用户", name: "user_name", value: "#{@account.detail.user_name}"}
+          .m-2
+          %input.form-input{type: "text", placeholder: "真实姓名", name: "real_name", value: "#{@account.detail.real_name}"}
           .m-2
           %select.form-select{name: "degree"}
             %option 选择在读学位
-            %option 本科
-            %option 研究生
+            %option{selected: @account.detail.degree == 1} 本科
+            %option{selected: @account.detail.degree == 2} 研究生
           .m-2
           %select.form-select{name: "grade"}
             %option 选择入学年份
-            %option 2015
-            %option 2016
-            %option 2017
-            %option 2018
+            %option{selected: @account.detail.grade == 2015} 2015
+            %option{selected: @account.detail.grade == 2016} 2016
+            %option{selected: @account.detail.grade == 2017} 2017
+            %option{selected: @account.detail.grade == 2018} 2018
           .m-2
           %select.form-select{name: "college"}
             %option 选择学院
-            %option 软件学院
+            - @colleges.each do |c|
+              %option{selected: @account.detail.college == c} #{c}
           .m-2
           #message.has-error{class: "#{@message.empty? ? 'hide' : ''}"}
             %p.form-input-hint #{@message}
@@ -34,3 +59,7 @@
         .text-center.text-gray 
           %p 
             %small 更新真实资料并认证后， 可以领取高级任务
+        #aid.hide{data:{id: "#{@token.access_id}"}}
+        #asecrete.hide{data:{id: "#{@token.access_secrete}"}}
+= render partial: "layouts/plupload"
+= render partial: "layouts/avatar_upload"

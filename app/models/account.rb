@@ -14,3 +14,7 @@ end
 class SendCode < ApplicationRecord
   self.table_name = 'lgd_send_code'
 end
+
+class Token < ApplicationRecord
+  self.table_name = 'lgd_tokens'
+end
