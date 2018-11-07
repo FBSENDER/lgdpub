@@ -28,27 +28,27 @@
           %a#postfiles.btn.float-right{href: "javasript:void(0);",style: "width:49%;"} 上传头像
         = form_tag("/account/profile", method: "post") do
           .m-2
-          %input#in_avatar.form-input.hide{type: "text", name: "avatar", value: "#{@account.detail.avatar}"}
-          %input.form-input{type: "text", placeholder: "用户名 - 将展示给其他用户", name: "user_name", value: "#{@account.detail.user_name}"}
+          %input#in_avatar.form-input.hide{type: "text", name: "avatar", value: "#{@account.detail.avatar if @account.detail}"}
+          %input.form-input{type: "text", placeholder: "用户名 - 将展示给其他用户", name: "user_name", value: "#{@account.detail.user_name if @account.detail}"}
           .m-2
-          %input.form-input{type: "text", placeholder: "真实姓名", name: "real_name", value: "#{@account.detail.real_name}"}
+          %input.form-input{type: "text", placeholder: "真实姓名", name: "real_name", value: "#{@account.detail.real_name if @account.detail}"}
           .m-2
           %select.form-select{name: "degree"}
             %option 选择在读学位
-            %option{selected: @account.detail.degree == 1} 本科
-            %option{selected: @account.detail.degree == 2} 研究生
+            %option{selected: @account.detail && @account.detail.degree == 1} 本科
+            %option{selected: @account.detail && @account.detail.degree == 2} 研究生
           .m-2
           %select.form-select{name: "grade"}
             %option 选择入学年份
-            %option{selected: @account.detail.grade == 2015} 2015
-            %option{selected: @account.detail.grade == 2016} 2016
-            %option{selected: @account.detail.grade == 2017} 2017
-            %option{selected: @account.detail.grade == 2018} 2018
+            %option{selected: @account.detail && @account.detail.grade == 2015} 2015
+            %option{selected: @account.detail && @account.detail.grade == 2016} 2016
+            %option{selected: @account.detail && @account.detail.grade == 2017} 2017
+            %option{selected: @account.detail && @account.detail.grade == 2018} 2018
           .m-2
           %select.form-select{name: "college"}
             %option 选择学院
             - @colleges.each do |c|
-              %option{selected: @account.detail.college == c} #{c}
+              %option{selected: @account.detail && @account.detail.college == c} #{c}
           .m-2
           #message.has-error{class: "#{@message.empty? ? 'hide' : ''}"}
             %p.form-input-hint #{@message}
