@@ -18,6 +18,11 @@ class TaskJianzhi < ApplicationRecord
   self.table_name = 'lgd_task_jianzhi'
 end
 
+class TaskErshou < ApplicationRecord
+  self.table_name = 'lgd_task_ershou'
+end
+
 class TaskOther < ApplicationRecord
   self.table_name = 'lgd_task_other'
 end
+

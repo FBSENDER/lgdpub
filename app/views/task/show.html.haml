@@ -1,4 +1,14 @@
 - if @task.task_type == 1 || @task.task_type == 2
   = render partial: "show_1v1"
-- if @task.task_type == 3 || @task.task_type == 99
+- if @task.task_type == 3 || @task.task_type == 4 || @task.task_type == 99
   = render partial: "show_1vn"
+
+.my-container.mt-2{style: "margin-bottom:200px;"}
+  .container
+    .columns
+      .col-10.col-mx-auto
+        %p.text-center{style: "line-height:100px;margin:0;"}
+          %small 
+            %a{href: "/"} 
+              %u lgd.pub
+            —— 辽工大（葫芦岛校区）学生专享服务

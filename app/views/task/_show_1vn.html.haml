@@ -1,11 +1,13 @@
 .my-container.mt-2
   .header 
-    %p #{@task.task_type == 3 ? '兼职招聘' : ''}
+    %p #{@task.task_type == 3 ? '兼职招聘' : @task.task_type == 4 ? '二手物品' : @task.task_type == 99 ? '自定义' : ''}
   .container
     .columns
       .col-9.col-mx-auto
         - if @task.task_type == 3
           = render partial: "task_jianzhi_detail"
+        - elsif @task.task_type == 4
+          = render partial: "task_ershou_detail"
         - elsif @task.task_type == 99
           = render partial: "task_other_detail"
         - if @account.nil?

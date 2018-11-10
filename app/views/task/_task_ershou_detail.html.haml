@@ -1,0 +1,14 @@
+%p 二手物品：#{@detail.content}
+%p 价格：#{@detail.price}
+%p 物品描述：#{@detail.detail}
+- @detail.imgs.split(',').each do |img|
+  .col-12.text-center
+    %img{src: "http://lgdpub.oss-cn-beijing.aliyuncs.com/#{img}", style: "width:100%;max-width:600px;"}
+  .m-2
+- if !@detail.remark.nil? && !@detail.remark.empty?
+  %p 备注：#{@detail.remark}
+%p 发布时间：#{@detail.created_at.localtime}
+- if @task.status == 0
+  %p.text-success 售卖中
+- elsif @task.status == 2
+  %p.text-success 交易已完成

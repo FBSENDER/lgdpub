@@ -19,6 +19,12 @@ function create_other_reset(){
   $("#message").addClass("hide");
 }
 
+function create_ershou_reset(){
+  $("#in_phone").removeClass("is-error");
+  $("#in_phone_p").html("").addClass("hide");
+  $("#message").addClass("hide");
+}
+
 function create_jianzhi_reset(){
   $("#in_phone").removeClass("is-error");
   $("#in_phone_p").html("").addClass("hide");
@@ -175,6 +181,51 @@ function create_other(){
   }
   return true;
 }
+function create_ershou(){
+  create_ershou_reset();
+  var content = $.trim($("#in_content").val());
+  var price = $.trim($("#in_price").val());
+  var detail = $.trim($("#in_detail").val());
+  var imgs = $.trim($("#in_imgs").val());
+  var phone = $.trim($("#in_phone").val());
+  var qq = $.trim($("#in_qq").val());
+  var wx = $.trim($("#in_wx").val());
+  if(imgs == ""){
+    $("#message").children("p").html("请上传图片");
+    $("#message").removeClass("hide");
+    return false;
+  }
+  if(content == ""){
+    $("#message").children("p").html("请输入二手物品");
+    $("#message").removeClass("hide");
+    return false;
+  }
+  if(price == ""){
+    $("#message").children("p").html("请输入价格");
+    $("#message").removeClass("hide");
+    return false;
+  }
+  if(detail == ""){
+    $("#message").children("p").html("请输入物品描述");
+    $("#message").removeClass("hide");
+    return false;
+  }
+  if(phone == "" && qq == "" && wx == ""){
+    $("#message").children("p").html("至少留一种联系方式");
+    $("#message").removeClass("hide");
+    return false;
+  }
+  if(phone != ""){
+    var r = check_phone(phone);
+    if(r != ""){
+      $("#in_phone").addClass("is-error");
+      $("#in_phone_p").html(r).removeClass("hide");
+      return false;
+    }
+  }
+  return true;
+}
+
 function create_jianzhi(){
   create_jianzhi_reset();
   var content = $.trim($("#in_content").val());

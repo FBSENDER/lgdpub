@@ -47,9 +47,9 @@ function get_uploaded_object_name(filename)
         return g_object_name
 }
 
-function set_upload_param(up, filename, ret)
+function set_upload_param(up, filename, ret, file)
 {
-    g_object_name = 'avatar/';
+    g_object_name = 'task/';
     if (filename != '') {
         g_object_name += $("#account").data("id") + "_" + calculate_object_name(filename);
     }
@@ -65,15 +65,15 @@ function set_upload_param(up, filename, ret)
         'url': host,
         'multipart_params': new_multipart_params
     });
-
-    $("#in_avatar").val('http://lgdpub.oss-cn-beijing.aliyuncs.com/' + g_object_name);
+    if(file != null)
+      $("#file_" + file.id).data("img", g_object_name);
     up.start();
 }
 
 var uploader = new plupload.Uploader({
   runtimes : 'html5,flash,silverlight,html4',
   browse_button : 'selectfiles', 
-  //multi_selection: false,
+  multi_selection: true,
   container: document.getElementById('container'),
   flash_swf_url : '/lib/plupload-2.1.2/js/Moxie.swf',
   silverlight_xap_url : '/lib/plupload-2.1.2/js/Moxie.xap',
@@ -84,42 +84,51 @@ var uploader = new plupload.Uploader({
     ],
     prevent_duplicates: true
   },
-
+  resize: {
+    width: 600,
+    crop: false,
+    preserve_headers: true
+  },
+  
   init: {
     PostInit: function() {
       $("#ossfile").html('');
       $("#postfiles").click(function(){
-        set_upload_param(uploader, '', false);
+        if($("#files > p").size() > 5){
+          alert("最多选择5张图片");
+          return false;
+        }
+        set_upload_param(uploader, '', false, null);
         return false;
       });
     },
     
     FilesAdded: function(up, files) {
       plupload.each(files, function(file) {
-        $("#ossfile").html(file.name + '('+ plupload.formatSize(file.size) + ')');
-        $("#ossfile").removeClass('hide');
-        $("#pro").removeClass('hide');
+        $("#files").append('<p id="file_'+ file.id +'" data-id="' + file.id + '"class="text-center text-gray my-2 py-2" data-img=""><small>' + file.name + '('+ plupload.formatSize(file.size) + ')  未上传</small><button class="btn btn-default btn-action btn-sm float-right" onclick="file_remove(this);"><i class="icon icon-cross"></i></button></p>');
       });
+      $("#pro").removeClass('hide');
+      $("#file_progress").css("width", '0');
     },
     
     BeforeUpload: function(up, file) {
-      set_upload_param(up, file.name, true);
+      set_upload_param(up, file.name, true, file);
     },
     
     UploadProgress: function(up, file) {
+      $("#pro").removeClass('hide');
       $("#file_progress").css("width", file.percent + '%');
     },
     
     FileUploaded: function(up, file, info) {
           if (info.status == 200)
           {
-            $("#ossfile").html('上传完成');
-            $("#avatar").attr("src", $("#in_avatar").val());
+            $("#file_" + file.id + " > small").html(file.name + '('+ plupload.formatSize(file.size) + ")  上传完成");
+            file_list.push($("#file_" + file.id).data("img"));
+            $("#in_imgs").val(file_list.join(','));
           }
           else
           {
-            $("#ossfile").html(info.response);
-            $("#in_avatar").val('');
           } 
     },
     
@@ -131,4 +140,16 @@ var uploader = new plupload.Uploader({
   }
 });
 
+var file_list = [];
 uploader.init();
+function file_remove(e){
+  file_list = jQuery.grep(file_list, function(value) {
+      return value != $(e).parent().data("img");
+  });
+  $("#in_imgs").val(file_list.join(','));
+  uploader.removeFile(uploader.getFile($(e).parent().data("id")));
+  $(e).parent().remove();
+  if($("#files > p").size() == 0){
+    $("#pro").addClass('hide');
+  }
+}

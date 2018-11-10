@@ -1,0 +1,45 @@
+.my-container.mt-2
+  .header 
+    %p 发布任务 - 二手交易
+  .container
+    .columns
+      .col-9.col-mx-auto#account{data: {id: "#{@account.id}"}}
+        #files
+        .m-2
+        .bar.bar-sm.my-2.hide#pro
+          .bar-item.hide#file_progress{style: "width:0;"}
+        #container
+          %a#selectfiles.btn{href: "javascript:void(0);",style: "width:49%;"} 选择图片
+          %a#postfiles.btn.float-right{href: "javasript:void(0);",style: "width:49%;"} 上传
+        .m-2
+        = form_tag("/task/create_task_ershou", method: "post", onsubmit: "return create_ershou();") do 
+          %input#in_imgs.form-input.hide{type: "text", name: "imgs", value: ""}
+          %label.form-label 二手物品
+          %input#in_content.form-input{type: "text", placeholder: "比如：手机、面膜...", name: "content",value: "#{@content}"}
+          .m-2
+          %label.form-label 价格
+          %input#in_price.form-input{type: "text", placeholder: "比如：100元 可小刀", name: "price",value: "#{@price}"}
+          .m-2
+          %label.form-label 物品描述
+          %input#in_detail.form-input{type: "text", placeholder: "如：9成新，有发票", name: "detail",value: "#{@detail}"}
+          .m-2
+          %label.form-label 备注
+          %input#in_remark.form-input{type: "text", placeholder: "备注 可不填", name: "remark",value: "#{@remark}"}
+          .m-2
+          %label.form-label 联系方式(至少留一种)
+          %input#in_phone.form-input{type: "text", placeholder: "电话号码", name: "phone", value: "#{@phone}"}
+          %p#in_phone_p.form-input-hint.hide
+          .m-2
+          %input#in_qq.form-input{type: "text", placeholder: "QQ号", name: "qq", value: "#{@qq}"}
+          .m-2
+          %input#in_wx.form-input{type: "text", placeholder: "微信号", name: "wx", value: "#{@wx}"}
+          #message.has-error{class: "#{@message.empty? ? 'hide' : ''}"}
+            %p.form-input-hint #{@message}
+          .m-2
+          %input.col-12.btn.btn-primary{type: "submit",value: "发布"}
+        .m-2
+        #aid.hide{data:{id: "#{@token.access_id}"}}
+        #asecrete.hide{data:{id: "#{@token.access_secrete}"}}
+
+= render partial: "layouts/plupload"
+= render partial: "layouts/task_upload"

@@ -83,3 +83,6 @@ header{
   height: 30px;
   margin: 0;
 }
+#preview .si img{
+  width: 100%;
+}

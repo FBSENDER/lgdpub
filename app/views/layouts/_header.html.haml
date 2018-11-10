@@ -1,8 +1,9 @@
 %header.navbar
   %section.navbar-section
     %a.navbar-brand.ml-2{href: "/"} LGD.PUB
-    %a.btn.btn-link{href: "/task/"} 任务大厅
-    %a.btn.btn-link{href: "/task/create/"} 发布任务
+    .mr-2
+    %a.btn.btn-link{href: "/task/"} 大厅
+    %a.btn.btn-link{href: "/task/create/"} 发布
   %section.navbar-section
     - if @account
       %a{href: "/account/my/",style: "margin-right:20px;"}
