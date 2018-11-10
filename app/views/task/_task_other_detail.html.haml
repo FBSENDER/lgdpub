@@ -2,7 +2,7 @@
 %p 任务详情：#{@detail.subtitle}
 - if !@detail.remark.nil? && !@detail.remark.empty?
   %p 备注：#{@detail.remark}
-%p 发布时间：#{@detail.created_at.localtime}
+%p 发布时间：#{@detail.created_at.in_time_zone("Beijing").strftime("%Y-%m-%d %H:%M")}
 - if @task.status == 0
   %p.text-success 任务发布中
 - elsif @task.status == 2

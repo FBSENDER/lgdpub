@@ -2,6 +2,6 @@
 %p From：#{@detail.from}
 %p To：#{@detail.to}
 %p 跑腿费：#{@detail.price}元
-%p 发布时间：#{@detail.created_at.localtime}
+%p 发布时间：#{@detail.created_at.in_time_zone("Beijing").strftime("%Y-%m-%d %H:%M")}
 - if !@detail.remark.nil? && !@detail.remark.empty?
   %p 备注：#{@detail.remark}
