@@ -295,18 +295,27 @@ class TaskController < ApplicationController
     end
     if @task.task_type == 1
       @detail = TaskKuaidi.where(task_id: @task.id).take
+      @task.img_url = "https://lgdpub.oss-cn-beijing.aliyuncs.com/task/task_kuaidi.png"
       not_found if @detail.nil?
     elsif @task.task_type == 2
       @detail = TaskDaike.where(task_id: @task.id).take
+      @task.img_url = "https://lgdpub.oss-cn-beijing.aliyuncs.com/task/task_daike.png"
       not_found if @detail.nil?
     elsif @task.task_type == 3
       @detail = TaskJianzhi.where(task_id: @task.id).take
+      @task.img_url = "https://lgdpub.oss-cn-beijing.aliyuncs.com/task/task_jianzhi.png"
       not_found if @detail.nil?
     elsif @task.task_type == 4
       @detail = TaskErshou.where(task_id: @task.id).take
+      @task.img_url = "https://lgdpub.oss-cn-beijing.aliyuncs.com/task/task_ershou.png"
+      imgs = @detail.imgs.split(',')
+      if imgs.size > 0
+        @task.img_url = "https://lgdpub.oss-cn-beijing.aliyuncs.com/#{imgs[0]}"
+      end
       not_found if @detail.nil?
     elsif @task.task_type == 99
       @detail = TaskOther.where(task_id: @task.id).take
+      @task.img_url = "https://lgdpub.oss-cn-beijing.aliyuncs.com/task/task_zidingyi.png"
       not_found if @detail.nil?
     else
       not_found

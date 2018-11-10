@@ -1,6 +1,7 @@
 .my-container.mt-2
   .header 
     %p #{@task.task_type == 1 ? '代取快递' : @task.task_type == 2 ? '代课' : ''}
+  .social-share
   .container
     .columns
       .col-9.col-mx-auto
@@ -44,3 +45,6 @@
             %button.col-12.btn.btn-success #{@task.status == 1 ? "已接单" : "已完成"}
           - else
             %button.col-12.btn.btn-error 已被别人接单
+
+  .col-9.col-mx-auto{style: "height:50px;"}
+    .social-share.float-right{data:{sites: "wechat,qq,qzone,weibo", title: "#{@task.title}", description: "#{@task.subtitle}", image: "#{@task.img_url}"}}

@@ -1,4 +1,5 @@
 class Task < ApplicationRecord
+  attr_accessor :img_url 
   self.table_name = 'lgd_tasks'
 end
 
