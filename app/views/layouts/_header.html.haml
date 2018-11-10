@@ -10,9 +10,7 @@
         - if @account.detail.nil?
           %figure.avatar.avatar-sm{style: "background-color: #5755d9;", data:{initial: "LGD"}}
         - elsif !@account.detail.avatar.nil? && !@account.detail.avatar.empty?
-          %figure.avatar.avatar-sm
-            :javascript
-              $("figure.avatar-sm").append('<img src="#{@account.detail.avatar}?x-oss-process=image/resize,m_fill,h_100,w_100">')
+          %figure.avatar.avatar-sm{style: "background-image: url('#{@account.detail.avatar}?x-oss-process=image/resize,m_fill,h_24,w_24');"}
         - elsif !@account.detail.user_name.nil? && !@account.detail.user_name.empty?
           %figure.avatar.avatar-sm{style: "background-color: #5755d9;", data:{initial: "#{@account.detail.user_name[0]}"}}
         - else
