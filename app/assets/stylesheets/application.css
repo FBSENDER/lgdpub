@@ -20,6 +20,12 @@ header{
   background-color: #fff;
   height: 2.5rem;
 }
+footer{
+  background-color: #fff;
+  width: 96%;
+  padding: 0 0 .8rem 0;
+  margin: 0 2%;
+}
 .hide{
   display: none;
 }
