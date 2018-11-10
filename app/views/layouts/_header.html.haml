@@ -1,6 +1,8 @@
 %header.navbar
   %section.navbar-section
     %a.navbar-brand.ml-2{href: "/"} LGD.PUB
+    - if @task
+      %img.hide{src: "#{@task.img_url}"}
     .mr-2
     %a.btn.btn-link{href: "/task/"} 大厅
     %a.btn.btn-link{href: "/task/create/"} 发布
