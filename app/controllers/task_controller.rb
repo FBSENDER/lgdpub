@@ -87,7 +87,7 @@ class TaskController < ApplicationController
         return
       end
       if(params[:phone].empty? && params[:qq].empty? && params[:wx].empty?)
-        redirect_to action: :create_task_daike, message: "请留一种联系方式", remark: params[:remark], phone: params[:phone], qq: params[:qq], wx: params[:wx]
+        redirect_to action: :create_task_kuaidi, message: "请留一种联系方式", remark: params[:remark], phone: params[:phone], qq: params[:qq], wx: params[:wx]
         return
       end
       price = params[:price].to_i
@@ -177,7 +177,7 @@ class TaskController < ApplicationController
       end
       task = Task.new
       task.task_type = 3
-      task.title = "兼职 - #{params[:content]}"
+      task.title = "#{params[:content]}"
       task.subtitle = "#{params[:place]} #{params[:work_time]} #{params[:price]} 要求：#{params[:gender]}"
       task.price = 0
       task.created_user = account.id
@@ -219,7 +219,7 @@ class TaskController < ApplicationController
       end
       task = Task.new
       task.task_type = 4
-      task.title = "二手物品 - #{params[:content]}"
+      task.title = "#{params[:content]}"
       task.subtitle = "#{params[:price]} #{params[:detail]}"
       task.price = 0
       task.created_user = account.id
@@ -295,22 +295,19 @@ class TaskController < ApplicationController
     end
     if @task.task_type == 1
       @detail = TaskKuaidi.where(task_id: @task.id).take
-      @task.img_url = "https://lgdpub.oss-cn-beijing.aliyuncs.com/task/task_kuaidi.png"
       not_found if @detail.nil?
     elsif @task.task_type == 2
       @detail = TaskDaike.where(task_id: @task.id).take
-      @task.img_url = "https://lgdpub.oss-cn-beijing.aliyuncs.com/task/task_daike.png"
       not_found if @detail.nil?
     elsif @task.task_type == 3
       @detail = TaskJianzhi.where(task_id: @task.id).take
-      @task.img_url = "https://lgdpub.oss-cn-beijing.aliyuncs.com/task/task_jianzhi.png"
       not_found if @detail.nil?
     elsif @task.task_type == 4
       @detail = TaskErshou.where(task_id: @task.id).take
-      @task.img_url = "https://lgdpub.oss-cn-beijing.aliyuncs.com/task/task_ershou.png"
+      @img = @task.default_img
       imgs = @detail.imgs.split(',')
       if imgs.size > 0
-        @task.img_url = "https://lgdpub.oss-cn-beijing.aliyuncs.com/#{imgs[0]}"
+        @img = "https://lgdpub.oss-cn-beijing.aliyuncs.com/#{imgs[0]}"
       end
       not_found if @detail.nil?
     elsif @task.task_type == 99
@@ -332,7 +329,7 @@ class TaskController < ApplicationController
     if account = is_login?
       @account = account
     end
-    @tasks = Task.where(status: 0).select(:id, :title, :subtitle, :created_at).order("id desc")
+    @tasks = Task.where(status: 0).select(:id, :title, :subtitle, :task_type, :created_at).order("id desc")
   end
 
   def create

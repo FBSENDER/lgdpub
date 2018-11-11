@@ -12,6 +12,8 @@
   - @tasks.each do |t|
     %a.text-dark{href: "/task/#{t.id}/"}
       .task-item
+        %img{src: "#{t.default_img}"}
         %i.icon.icon-arrow-right
         %p.header.text-ellipsis #{t.title}
-        %p.detail.text-ellipsis #{t.subtitle}
+        %p.detail.text-break{style: "overflow:hidden;"} #{t.subtitle}
+        %p.time.text-right #{t.created_at.in_time_zone("Beijing").strftime("%Y-%m-%d %H:%M")}

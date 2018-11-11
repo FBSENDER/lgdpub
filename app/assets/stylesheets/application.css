@@ -66,28 +66,41 @@ footer{
   margin: .4rem 2%;
 }
 .task-list .task-item{
-  padding: .4rem;
   border-bottom: .2rem solid #F7F7F7;
-  height: 87px;
+  height: 124px;
+}
+.task-list .task-item img{
+  border-radius: 5px;
+  margin:5px;
+  height:110px;
+  width: 110px;
+  float: left;
 }
 .task-list .task-item i{
   float: right;
   height: 0;
   position: relative;
-  top: 37px;
+  top: 58px;
 }
 .task-list .task-item .header{
-  font-size: 24px;
+  font-size: 16px;
   font-weight: bold;
-  line-height: 40px;
-  height: 40px;
-  margin: 0;
-}
-.task-list .task-item .detail{
-  font-size: 18px;
   line-height: 30px;
   height: 30px;
-  margin: 0;
+  margin: 0 20px 0 125px;
+}
+.task-list .task-item .detail{
+  font-size: 14px;
+  line-height: 30px;
+  height: 60px;
+  margin: 0 20px 0 125px;
+  overflow: hidden;
+}
+.task-list .task-item .time{
+  font-size: 14px;
+  line-height: 30px;
+  height: 30px;
+  margin: 0 20px 0 125px;
 }
 #preview .si img{
   width: 100%;

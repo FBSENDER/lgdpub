@@ -1,6 +1,19 @@
 class Task < ApplicationRecord
-  attr_accessor :img_url 
   self.table_name = 'lgd_tasks'
+  def default_img
+    case self.task_type
+    when 1 
+      return "http://lgdpub.oss-cn-beijing.aliyuncs.com/task/task_kuaidi.png"
+    when 2 
+      return "http://lgdpub.oss-cn-beijing.aliyuncs.com/task/task_daike.png"
+    when 3 
+      return "http://lgdpub.oss-cn-beijing.aliyuncs.com/task/task_jianzhi.png"
+    when 4 
+      return "http://lgdpub.oss-cn-beijing.aliyuncs.com/task/task_ershou.png"
+    else
+      return "http://lgdpub.oss-cn-beijing.aliyuncs.com/task/task_zidingyi.png"
+    end
+  end
 end
 
 class TURelation < ApplicationRecord
