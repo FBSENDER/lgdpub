@@ -28,4 +28,4 @@
             %p 联系微信：#{@detail.wx}
 
   .col-9.col-mx-auto{style: "height:50px;"}
-    .social-share.float-right{data:{sites: "wechat,qq,qzone,weibo", title: "#{@task.title}", description: "#{@task.subtitle}", image: "#{@task.img_url}"}}
+    .social-share.float-right{data:{sites: "wechat,qq,qzone,weibo", title: "#{@task.title}", description: "#{@task.subtitle}", image: "#{@task.task_type == 4 ? @img : @task.default_img}"}}
