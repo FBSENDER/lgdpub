@@ -312,7 +312,6 @@ class TaskController < ApplicationController
       not_found if @detail.nil?
     elsif @task.task_type == 99
       @detail = TaskOther.where(task_id: @task.id).take
-      @task.img_url = "https://lgdpub.oss-cn-beijing.aliyuncs.com/task/task_zidingyi.png"
       not_found if @detail.nil?
     else
       not_found
