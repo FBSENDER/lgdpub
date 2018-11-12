@@ -33,6 +33,8 @@
             %p.text-success 接单用户：#{@ruser.phone}
         - elsif @account.id != @task.created_user && @task.status == 0
           %a.col-12.btn.btn-primary{href: "/task/#{@task.id}/take/"} 接单
+          %p.text-center.text-gray
+            %small 接单后，请按给出的联系方式主动联系发布人
         - elsif @account.id != @task.created_user
           - if @relation.user_id == @account.id
             - unless @detail.phone.empty?
