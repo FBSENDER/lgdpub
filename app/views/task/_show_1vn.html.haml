@@ -1,6 +1,7 @@
 .my-container.mt-2
   .header 
-    %img.float-left{src: "#{@task.default_img}", style: "width:40px;height:40px;"}
+    - if @task.task_type != 4
+      %img.float-left{src: "#{@task.default_img}", style: "width:40px;height:40px;"}
     %p{style: "width: 80%;margin: 0 auto;"}
       #{@task.task_type == 3 ? '兼职招聘' : @task.task_type == 4 ? '二手物品' : @task.task_type == 99 ? '自定义' : ''}
   .container
