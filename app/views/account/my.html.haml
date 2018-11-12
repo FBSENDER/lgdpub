@@ -21,18 +21,18 @@
         .toast.toast-success.mt-2
           %button.btn.btn-clear.float-right{onclick: "toast_hide(this);"}
           #{@message}
-    .setting
-      %a.text-dark{href: "/account/password_new/"}
+    %a.text-dark{href: "/account/password_new/"}
+      .setting
         %i.icon.icon-edit
         %span.px-2 重置密码
         %i.icon.icon-arrow-right.float-right{style: "position:reltive;top:15px;margin-right:5px;"}
-    .setting
-      %a.text-dark{href: "/account/profile/"}
+    %a.text-dark{href: "/account/profile/"}
+      .setting
         %i.icon.icon-people
         %span.px-2 更新资料
         %i.icon.icon-arrow-right.float-right{style: "position:reltive;top:15px;margin-right:5px;"}
-    .setting
-      %a.text-dark{href: "/account/sign_out/"}
+    %a.text-dark{href: "/account/sign_out/"}
+      .setting
         %i.icon.icon-shutdown
         %span.px-2 退出登录
         %i.icon.icon-arrow-right.float-right{style: "position:reltive;top:15px;margin-right:5px;"}
