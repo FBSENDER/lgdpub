@@ -17,21 +17,25 @@
           %figure.avatar.avatar-xl{style: "background-color: #5755d9;", data:{initial: "LGD"}}
       .mt-2
       .panel-title.h5.text-center.m-10  用户 #{@account.phone}
-      .panel-subtitle
-        .columns
-          .col-4.text-center
-            %a.btn.btn-link{href: "/account/password_new/"} 
-              %u.text-gray 更新密码
-          .col-4.text-center
-            %a.btn.btn-link{href: "/account/profile/"} 
-              %u.text-gray 更新资料
-          .col-4.text-center
-            %a.btn.btn-link{href: "/account/sign_out/"} 
-              %u.text-gray 退出登陆
       - if @message != ""
         .toast.toast-success.mt-2
           %button.btn.btn-clear.float-right{onclick: "toast_hide(this);"}
           #{@message}
+    .setting
+      %a.text-dark{href: "/account/password_new/"}
+        %i.icon.icon-edit
+        %span.px-2 重置密码
+        %i.icon.icon-arrow-right.float-right{style: "position:reltive;top:15px;margin-right:5px;"}
+    .setting
+      %a.text-dark{href: "/account/profile/"}
+        %i.icon.icon-people
+        %span.px-2 更新资料
+        %i.icon.icon-arrow-right.float-right{style: "position:reltive;top:15px;margin-right:5px;"}
+    .setting
+      %a.text-dark{href: "/account/sign_out/"}
+        %i.icon.icon-shutdown
+        %span.px-2 退出登录
+        %i.icon.icon-arrow-right.float-right{style: "position:reltive;top:15px;margin-right:5px;"}
     .panel-nav
       %ul.tab.tab-block
         %li.tab-item.active
