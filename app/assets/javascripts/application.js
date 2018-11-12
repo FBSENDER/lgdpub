@@ -88,7 +88,7 @@ function send_check_code(phone_input){
   });
 }
 function send_check_code_count_down(num){
-  $("#sending_code").html("重新发送" + num + "秒");
+  $("#sending_code").html("重发" + num + "秒");
   if(num == 0){
     $("#send_code").removeClass("hide");
     $("#sending_code").addClass("hide");
