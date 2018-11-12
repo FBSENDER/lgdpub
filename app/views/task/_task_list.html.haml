@@ -1,0 +1,15 @@
+- if tasks.size.zero?
+  .my-container.mt-2
+    %p.h5.text-center{style: "padding:1rem;"} 目前没有待领取的任务
+    %p.h5.text-center
+      %a{href: "/task/create/"} 
+        %u 去发布
+.task-list
+  - tasks.each do |t|
+    %a.text-dark{href: "/task/#{t.id}/"}
+      .task-item
+        %img{src: "#{t.default_img}"}
+        %i.icon.icon-arrow-right
+        %p.header.text-ellipsis #{t.title}
+        %p.detail.text-break{style: "overflow:hidden;"} #{t.subtitle}
+        %p.time.text-right #{t.created_at.in_time_zone("Beijing").strftime("%Y-%m-%d %H:%M")}

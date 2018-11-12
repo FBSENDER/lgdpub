@@ -101,6 +101,29 @@ footer{
 .btn{
   border-radius: 0.25rem;
 }
+.task-filter .filter-nav{
+  width: 96%;
+  padding: 0;
+  margin: .4rem 2%;
+}
+.filter-nav.task{
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+  margin: 0 auto;
+  padding: .4rem;
+  width: 100%;
+  text-align: center;
+}
+.filter-nav.task.fixed{
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+}
+.filter-item.task{
+  width: 100%;
+}
 .task-list{
   background-color: #fff;
   width: 96%;

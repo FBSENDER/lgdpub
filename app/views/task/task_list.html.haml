@@ -2,18 +2,30 @@
 - head_desc("任务大厅，辽工大生活服务社区，发布与领取任务，享受便利大学生活！")
 - keywords("辽工大,辽宁工程技术大学,lgd.pub,lgdpub")
 
-- if @tasks.size.zero?
-  .my-container.mt-2
-    %p.h5.text-center{style: "padding:1rem;"} 目前没有待领取的任务
-    %p.h5.text-center
-      %a{href: "/task/create/"} 
-        %u 去发布
-.task-list
-  - @tasks.each do |t|
-    %a.text-dark{href: "/task/#{t.id}/"}
-      .task-item
-        %img{src: "#{t.default_img}"}
-        %i.icon.icon-arrow-right
-        %p.header.text-ellipsis #{t.title}
-        %p.detail.text-break{style: "overflow:hidden;"} #{t.subtitle}
-        %p.time.text-right #{t.created_at.in_time_zone("Beijing").strftime("%Y-%m-%d %H:%M")}
+.filter.task-filter
+  %input.filter-tag{type: "radio", id: "tag-1", name: "filter-radio", hidden: '', checked: ''}
+  %input.filter-tag{type: "radio", id: "tag-2", name: "filter-radio", hidden: ''}
+  %input.filter-tag{type: "radio", id: "tag-3", name: "filter-radio", hidden: ''}
+  %input.filter-tag{type: "radio", id: "tag-4", name: "filter-radio", hidden: ''}
+  %input.filter-tag{type: "radio", id: "tag-5", name: "filter-radio", hidden: ''}
+  %input.filter-tag{type: "radio", id: "tag-6", name: "filter-radio", hidden: ''}
+  .filter-nav.task
+    %label.chip{for: "tag-1"}全部
+    %label.chip{for: "tag-2"}取件
+    %label.chip{for: "tag-3"}代课
+    %label.chip{for: "tag-4"}兼职
+    %label.chip{for: "tag-5"}二手
+    %label.chip{for: "tag-6"}其它
+  .filter-body
+    .filter-item.task{data:{tag: "tag-1"}}
+      = render partial: "task_list", locals: {tasks: @tasks}
+    .filter-item.task{data:{tag: "tag-2"}}
+      = render partial: "task_list", locals: {tasks: @task_1}
+    .filter-item.task{data:{tag: "tag-3"}}
+      = render partial: "task_list", locals: {tasks: @task_2}
+    .filter-item.task{data:{tag: "tag-4"}}
+      = render partial: "task_list", locals: {tasks: @task_3}
+    .filter-item.task{data:{tag: "tag-5"}}
+      = render partial: "task_list", locals: {tasks: @task_4}
+    .filter-item.task{data:{tag: "tag-6"}}
+      = render partial: "task_list", locals: {tasks: @task_5}

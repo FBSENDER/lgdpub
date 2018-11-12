@@ -345,3 +345,14 @@ function do_feedback(){
   }
   return true;
 }
+$(function(){
+  $(document).on('scroll', function(){
+    var _top = $(document).scrollTop();
+    if(_top >= 100){
+      $("div.filter-nav").addClass('fixed');
+    }
+    else{
+      $("div.filter-nav").removeClass('fixed');
+    }
+  });
+});

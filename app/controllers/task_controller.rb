@@ -329,7 +329,12 @@ class TaskController < ApplicationController
     if account = is_login?
       @account = account
     end
-    @tasks = Task.where(status: 0).select(:id, :title, :subtitle, :task_type, :created_at).order("id desc")
+    @tasks = Task.where(status: 0).select(:id, :title, :subtitle, :task_type, :created_at).order("id desc").to_a
+    @task_1 = @tasks.select{|t| t.task_type == 1}
+    @task_2 = @tasks.select{|t| t.task_type == 2}
+    @task_3 = @tasks.select{|t| t.task_type == 3}
+    @task_4 = @tasks.select{|t| t.task_type == 4}
+    @task_5 = @tasks.select{|t| t.task_type == 99}
     @tab = 2
   end
 
