@@ -330,6 +330,7 @@ class TaskController < ApplicationController
       @account = account
     end
     @tasks = Task.where(status: 0).select(:id, :title, :subtitle, :task_type, :created_at).order("id desc")
+    @tab = 2
   end
 
   def create
@@ -337,6 +338,7 @@ class TaskController < ApplicationController
     if account = is_login?
       @account = account
     end
+    @tab = 3
   end
 
   def take

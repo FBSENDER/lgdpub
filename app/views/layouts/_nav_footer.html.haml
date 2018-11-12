@@ -1,0 +1,29 @@
+.nav-tab-footer
+  %a{href: "/", class: "#{!@tab.nil? && @tab  == 1 ? 'active' : ''}"}
+    %i.iconfont
+      - if !@tab.nil? && @tab == 1
+        %img{src: "/img/home_active.png"}
+      - else
+        %img{src: "/img/home.png"}
+    首页
+  %a{href: "/task/", class: "#{!@tab.nil? && @tab  == 2 ? 'active' : ''}"}
+    %i.iconfont
+      - if !@tab.nil? && @tab == 2
+        %img{src: "/img/list_active.png"}
+      - else
+        %img{src: "/img/list.png"}
+    任务大厅
+  %a{href: "/task/create/", class: "#{!@tab.nil? && @tab  == 3 ? 'active' : ''}"}
+    %i.iconfont
+      - if !@tab.nil? && @tab == 3
+        %img{src: "/img/publish_active.png"}
+      - else
+        %img{src: "/img/publish.png"}
+    发布任务
+  %a{href: "/account/my/", class: "#{!@tab.nil? && @tab  == 4 ? 'active' : ''}"}
+    %i.iconfont
+      - if !@tab.nil? && @tab == 4
+        %img{src: "/img/my_active.png"}
+      - else
+        %img{src: "/img/my.png"}
+    我的

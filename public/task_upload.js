@@ -80,7 +80,7 @@ var uploader = new plupload.Uploader({
   url : 'http://oss.aliyuncs.com',
   filters: {
     mime_types : [
-      { title : "Image files", extensions : "jpg,gif,png" }
+      { title : "Image files", extensions : "jpg,gif,png,jpeg" }
     ],
     prevent_duplicates: true
   },

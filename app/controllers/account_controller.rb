@@ -155,10 +155,11 @@ class AccountController < ApplicationController
     end
     @account = account
     @message = params[:message].nil? ? "" : params[:message]
-    @my_published_tasks = Task.where(created_user: account.id).select(:id, :title, :subtitle).order("id desc")
+    @my_published_tasks = Task.where(created_user: account.id).select(:id, :title, :subtitle, :task_type, :created_at).order("id desc")
 
     taked_ids = TURelation.where(user_id: @account.id).pluck(:task_id)
-    @my_taked_tasks = Task.where(id: taked_ids).select(:id, :title, :subtitle).order("id desc")
+    @my_taked_tasks = Task.where(id: taked_ids).select(:id, :title, :subtitle, :task_type, :created_at).order("id desc")
+    @tab = 4
   end
 
   def sign_out
