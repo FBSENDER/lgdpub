@@ -7,3 +7,9 @@
 - if @task.task_type == 3 || @task.task_type == 4 || @task.task_type == 99
   = render partial: "show_1vn"
 
+- if @tasks.size > 0
+  %p.text-center{style: "padding: 10px;margin:0;"}
+    %a.text-gray{href: "/task/"} View More
+  = render partial: "task_list", locals: {tasks: @tasks}
+
+

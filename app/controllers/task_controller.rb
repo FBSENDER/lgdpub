@@ -321,6 +321,7 @@ class TaskController < ApplicationController
     if @relation
       @ruser = Account.where(id: @relation.user_id).take
     end
+    @tasks = Task.where(status: 0, task_type: @task.task_type).where.not(id: @task.id).select(:id, :title, :subtitle, :task_type, :created_at)
   end
 
   def task_list
