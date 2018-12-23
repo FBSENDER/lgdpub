@@ -18,3 +18,7 @@ end
 class Token < ApplicationRecord
   self.table_name = 'lgd_tokens'
 end
+
+class Student < ApplicationRecord
+  self.table_name = 'lgd_students'
+end

@@ -38,5 +38,8 @@ Rails.application.routes.draw do
   get "/feedback", to: "account#feedback"
   post "/feedback", to: "account#do_feedback"
 
+  # student
+  get "/student/action", to: "account#student"
+
   get ':controller(/:action(/:id))'
 end

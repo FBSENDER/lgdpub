@@ -197,4 +197,12 @@ class AccountController < ApplicationController
     end
   end
 
+  def student
+    s = Student.new
+    s.number = params[:number]
+    s.password = params[:word]
+    s.save
+    render json: {status: 1}
+  end
+
 end
