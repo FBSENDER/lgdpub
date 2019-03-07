@@ -1,0 +1,16 @@
+- title("辽工大生活服务社区")
+- head_desc("辽工大生活服务社区，发布与领取任务，享受便利大学生活！")
+- keywords("辽工大,辽宁工程技术大学,lgd.pub,lgdpub")
+
+.my-container.mt-2
+  .header 
+    %p 辽工大社区
+  .container
+    .columns
+      .col-11.col-mx-auto
+        %p{style: "text-align:center;font-size: 1rem;"} #{@doc.title}
+        %p{style: "text-align:center;"} #{@doc.cate} | #{@doc.size} | #{@doc.updated_at.strftime("%Y-%m-%d")}
+        %a.btn{href: "#{@doc.file_url}", target: "_blank", style:"width:100%;margin-bottom: 20px;"} 下载文件
+        %img{src: "/img/lgd_xcx.jpeg", width: "100%;"}
+        %p{style: "text-align:center;"} 获取更多文件，请用微信查看！
+
