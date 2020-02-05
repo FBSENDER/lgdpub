@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get "/", to: "hotel#home", constraints: {domain: 'ddzhusu.com'}
   root "ziliao#home"
   # ziliao
   get "/ziliao/download/:id", to: "ziliao#download"
@@ -43,5 +44,7 @@ Rails.application.routes.draw do
   # student
   get "/student/action", to: "account#student"
 
+  # hotel
+  get "/hotel/:md5", to: "hotel#show"
   get ':controller(/:action(/:id))'
 end

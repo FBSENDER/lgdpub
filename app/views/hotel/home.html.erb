@@ -1,0 +1,21 @@
+<% title(@title) %>
+<% head_desc(@description) %>
+<% keywords(@page_keywords) %>
+<% path(@path) %>
+
+<header class="col-12" style="background-color:#003580;color:#fff;height:40px;line-height:40px;text-align:center;">滴滴住宿 - Booking</header>
+<article class="container" style="max-width:1200px;margin: 0 auto;min-height:500px;background-color:#f6f6f6;padding-bottom: 20px;">
+  <div class="columns">
+    <div class="col-12">
+      <h1 style="font-size:20px;padding:5px 10px;margin:0;color:#111;">滴滴住宿 - 酒店公寓列表</h1>
+      <% @related_hotels.each do |h| %>
+        <p style="padding: 5px 10px;margin:0;font-size:14px;color:#333;">
+          <a href="/hotel/<%= h.url_path_md5 %>/"><%= h.hotel_name%></a>
+        </p>
+      <% end %>
+    </div>
+  </div>
+</article>
+<footer style="text-align:center;font-size:12px;padding: 20px 10px;color:#999;margin-bottom:40px;">
+  滴滴住宿 - 提供国内外特色住宿，酒店式公寓、短租日租公寓、家庭旅馆、特色民宿在线预订
+</footer>

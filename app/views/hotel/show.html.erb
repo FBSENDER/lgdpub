@@ -1,0 +1,45 @@
+<% title(@title) %>
+<% head_desc(@description) %>
+<% keywords(@page_keywords) %>
+<% path(@path) %>
+
+<header class="col-12" style="background-color:#003580;color:#fff;height:40px;line-height:40px;text-align:center;">
+  <a href="/" style="color:#fff;">滴滴住宿 - Booking</a>
+</header>
+<article class="container" style="max-width:1200px;margin: 0 auto;min-height:500px;background-color:#f6f6f6;padding-bottom: 20px;">
+  <div class="columns">
+    <div class="col-12">
+      <h1 style="font-size:20px;padding:5px 10px;margin:0;color:#111;"><%= @hotel.hotel_name%> 酒店公寓预订</h1>
+      <p style="padding:5px 10px;margin:0;font-size:12px;color:#999;">地址：<%= @hotel.address %></p>
+      <p style="padding:5px 10px;margin:0;font-size:12px;color:#999;">特色设施：<%= @hotel.important_facilities.split('|||').join(' ') %></p>
+      <% @hotel.hotel_desc.split("\n").each do |desc| %>
+        <p style="padding:5px 10px;margin:0;font-size:14px;color:#333;"><%= desc %></p>
+      <% end %>
+      <h2 style="padding:5px 10px;margin:0;font-size:16px;color:#111;">推荐预订理由：</h2>
+      <% @hotel.reasons.split("|||").each do |desc| %>
+        <p style="padding:5px 10px;margin:0;font-size:14px;color:#333;"><%= desc %></p>
+      <% end %>
+      <h2 style="padding:5px 10px;margin:0;font-size:16px;color:#111;"><%= @hotel.hotel_name%>图片：</h2>
+      <amp-carousel width="500" height="300" layout="responsive" type="slides" style="margin: 10px 0;">
+        <% @imgs.each do |image| %>
+          <amp-img src="<%= image %>" width="500" height="300"></amp-img>
+        <% end %>
+      </amp-carousel>
+      <h2 style="padding:5px 10px;margin:0;font-size:16px;color:#111;"><%= @hotel.country_name%>-<%= @hotel.region_name%> - <%= @hotel.city_name%> 更多酒店公寓推荐：</h2>
+      <% @related_hotels.each do |h| %>
+        <p style="padding: 5px 10px;margin:0;font-size:14px;color:#333;">
+          <a href="/hotel/<%= h.url_path_md5 %>/"><%= h.hotel_name%></a>
+        </p>
+      <% end %>
+
+    </div>
+  </div>
+</article>
+<a href="https://www.booking.com<%= @hotel.url_path%>?aid=895887" style="color:#fff;" target="_blank">
+  <div class="col-12" style="position:fixed;bottom:0;height:40px;line-height:40px;text-align:center;color:#fff;z-index:100;background-color:#07c;">
+    去 Booking.com 预订
+  </div>
+</a>
+<footer style="text-align:center;font-size:12px;padding: 20px 10px;color:#999;margin-bottom:40px;">
+  滴滴住宿 - 为您提供<%= @hotel.hotel_name %>酒店公寓预订服务
+</footer>
