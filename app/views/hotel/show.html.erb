@@ -15,6 +15,7 @@
       <% @hotel.hotel_desc.split("\n").each do |desc| %>
         <p style="padding:5px 10px;margin:0;font-size:14px;color:#333;"><%= desc %></p>
       <% end %>
+      <a class="btn btn-success" style="background-color:#07c;border-color:#07c;margin:20px 5%;width:90%;" href="https://www.booking.com<%= @hotel.url_path%>?aid=895887">去 Booking.com 预订</a>
       <h2 style="padding:5px 10px;margin:0;font-size:16px;color:#111;">推荐预订理由：</h2>
       <% @hotel.reasons.split("|||").each do |desc| %>
         <p style="padding:5px 10px;margin:0;font-size:14px;color:#333;"><%= desc %></p>
@@ -35,9 +36,6 @@
     </div>
   </div>
 </article>
-<a class="col-12" href="https://www.booking.com<%= @hotel.url_path%>?aid=895887" style="position:fixed;bottom:0;height:40px;line-height:40px;text-align:center;color:#fff;z-index:100;background-color:#07c;" target="_blank">
-  去 Booking.com 预订
-</a>
-<footer style="text-align:center;font-size:12px;padding: 20px 10px;color:#999;margin-bottom:40px;">
+<footer style="text-align:center;font-size:12px;padding: 20px 10px;color:#999;">
   滴滴住宿 - 为您提供<%= @hotel.hotel_name %>酒店公寓预订服务
 </footer>
