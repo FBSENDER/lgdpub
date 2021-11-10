@@ -11,7 +11,6 @@ class ApplicationController < ActionController::Base
 
   def is_login?
     account = Account.where(id: cookies[:user_id].to_i, token: cookies[:token]).take
-    p account
     if account.nil?
       return false
     end

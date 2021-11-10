@@ -1,0 +1,30 @@
+- title("录入信息")
+- head_desc("")
+- keywords("")
+
+.my-container.mt-2
+  .header 
+    %p 录入信息
+  .container
+    .columns
+      .col-9.col-mx-auto
+        = form_tag("/zqtask/create_info", method: "post", onsubmit: "return create_other_zq();") do 
+          %label.form-label 姓名
+          %input#in_name.form-input{type: "text", placeholder: "请输入姓名", name: "name",value: "#{@name}"}
+          .m-2
+          %label.form-label 手机号
+          %input#in_phone.form-input{type: "text", placeholder: "请输入手机号", name: "phone",value: "#{@phone}"}
+          .m-2
+          %label.form-label 身份证号
+          %input#in_pcode.form-input{type: "text", placeholder: "请输入身份证号", name: "pcode",value: "#{@pcode}"}
+          .m-2
+          %label.form-label 淘宝ID
+          %input#in_tbid.form-input{type: "text", placeholder: "请输入淘宝ID", name: "tbid", value: "#{@tbid}"}
+          .m-2
+          %label.form-label 请输入作业区域
+          %input#in_place.form-input{type: "text", placeholder: "请输入作业区域", name: "place", value: "#{@place}"}
+          #message.has-error{class: "#{@message.empty? ? 'hide' : ''}"}
+            %p.form-input-hint #{@message}
+          .m-2
+          %input.col-12.btn.btn-primary{type: "submit",value: "录入"}
+        .m-2

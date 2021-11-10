@@ -1,7 +1,23 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get "/", to: "zqaccount#my", constraints: {host: 'z.lgdpub.com'}
   get "/", to: "hotel#home", constraints: {domain: 'ddzhusu.com'}
   root "ziliao#home"
+
+  #zq
+  get "/zqaccount/sign_in", to: "zqaccount#sign_in", constraints: {host: 'z.lgdpub.com'}
+  post "/zqaccount/sign_in", to: "zqaccount#do_sign_in", constraints: {host: 'z.lgdpub.com'}
+  get "/zqaccount/sign_up", to: "zqaccount#sign_up", constraints: {host: 'z.lgdpub.com'}
+  post "/zqaccount/sign_up", to: "zqaccount#do_sign_up", constraints: {host: 'z.lgdpub.com'}
+  get "/zqaccount/password_new", to: "zqaccount#password_new", constraints: {host: 'z.lgdpub.com'}
+  post "/zqaccount/password_new", to: "zqaccount#do_password_new", constraints: {host: 'z.lgdpub.com'}
+  get "/zqaccount/profile", to: "zqaccount#profile", constraints: {host: 'z.lgdpub.com'}
+  post "/zqaccount/profile", to: "zqaccount#update_profile", constraints: {host: 'z.lgdpub.com'}
+  get "/zqaccount/send_code", to: "zqaccount#send_code", constraints: {host: 'z.lgdpub.com'}
+  get "/zqtask/create_info", to: "zqtask#create_info", constraints: {host: 'z.lgdpub.com'}
+  post "/zqtask/create_info", to: "zqtask#do_create_info", constraints: {host: 'z.lgdpub.com'}
+
+
   # ziliao
   get "/ziliao/download/:id", to: "ziliao#download"
   # account

@@ -1,0 +1,40 @@
+- title("我的")
+- head_desc("")
+- keywords("")
+
+.my-container.mt-2{style: "padding:0;"}
+  .panel
+    .panel-header
+      .mt-2
+      .panel-title.h5.text-center.m-10  用户 #{@account.phone}
+      - if @message != ""
+        .toast.toast-success.mt-2
+          %button.btn.btn-clear.float-right{onclick: "toast_hide(this);"}
+          #{@message}
+    %a.text-dark{href: "/zqaccount/password_new/"}
+      .setting
+        %i.icon.icon-edit
+        %span.px-2 重置密码
+        %i.icon.icon-arrow-right.float-right{style: "position:reltive;top:15px;margin-right:5px;"}
+    %a.text-dark{href: "/zqaccount/sign_out/"}
+      .setting
+        %i.icon.icon-shutdown
+        %span.px-2 退出登录
+        %i.icon.icon-arrow-right.float-right{style: "position:reltive;top:15px;margin-right:5px;"}
+    .my-container.m-10.mt-2
+      %table.table
+        %thead
+          %tr
+            %th 姓名
+            %th 手机号
+            %th 身份证号
+            %th 淘宝ID
+            %th 区域
+        %tbody
+          - @infos.each do |info|
+            %tr
+              %td #{info.name}
+              %td #{info.phone}
+              %td #{info.pcode}
+              %td #{info.tbid}
+              %td #{info.place}

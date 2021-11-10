@@ -1,0 +1,17 @@
+.nav-tab-footer
+  %a{href: "#"}
+  %a{href: "/zqtask/create_info", class: "#{!@tab.nil? && @tab  == 1 ? 'active' : ''}"}
+    %i.iconfont
+      - if !@tab.nil? && @tab == 1
+        %img{src: "/img/publish_active.png"}
+      - else
+        %img{src: "/img/publish.png"}
+    录入信息
+  %a{href: "/zqaccount/my/", class: "#{!@tab.nil? && @tab  == 2 ? 'active' : ''}"}
+    %i.iconfont
+      - if !@tab.nil? && @tab == 2
+        %img{src: "/img/my_active.png"}
+      - else
+        %img{src: "/img/my.png"}
+    我的
+  %a{href: "#"}

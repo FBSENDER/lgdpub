@@ -66,6 +66,27 @@ function sign_in_reset(){
   $("#in_password_p").html("").addClass("hide");
   $("#message").html("").addClass("hide");
 }
+function send_check_code_666(phone_input){
+  var $phone = $("#"+phone_input);
+  var phone = $.trim($phone.val());
+  var r = check_phone(phone);
+  if(r != ""){
+    $phone.addClass("is-error");
+    $("#" + phone_input + "_p").html(r).removeClass("hide");
+    return false;
+  }
+  else{
+    $phone.removeClass("is-error");
+    $("#" + phone_input + "_p").html("").addClass("hide");
+  }
+  var c = "6666";
+  $("#in_code_confirm").val(c);
+  $("#sending_code").removeClass("hide");
+  $("#send_code").addClass("hide");
+  send_check_code_count_down(60);
+  $.get("/zqaccount/send_code",{phone: phone, code: c}, function(data){
+  });
+}
 function send_check_code(phone_input){
   var $phone = $("#"+phone_input);
   var phone = $.trim($phone.val());
@@ -149,6 +170,14 @@ function sign_in(){
   return true;
 }
 
+function create_other_zq(){
+  var name = $.trim($("#in_name").val());
+  var pcode = $.trim($("#in_pcode").val());
+  var phone = $.trim($("#in_phone").val());
+  var place = $.trim($("#in_place").val());
+  var tbid = $.trim($("#in_tbid").val());
+  return true;
+}
 function create_other(){
   create_other_reset();
   var title = $.trim($("#in_title").val());
