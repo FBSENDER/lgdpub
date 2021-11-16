@@ -138,9 +138,10 @@ class ZqaccountController < ApplicationController
       redirect_to action: :sign_in
       return
     end
+    @page = params[:page].to_i || 0
     @account = account
     @message = params[:message].nil? ? "" : params[:message]
-    @infos = ZqTask.where(created_user: @account.id).select(:id, :name, :phone, :pcode, :tbid, :place).order("id desc")
+    @infos = ZqTask.where(created_user: @account.id).select(:id, :name, :phone, :pcode, :tbid, :place, :status, :reason).order("id desc").offset(50 * @page).limit(50)
     @tab = 2
     render "my", layout: "zq_application"
   end

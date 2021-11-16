@@ -22,7 +22,7 @@
         %span.px-2 退出登录
         %i.icon.icon-arrow-right.float-right{style: "position:reltive;top:15px;margin-right:5px;"}
     .my-container.m-10.mt-2
-      %table.table
+      %table.table{style: "margin-bottom: 80px;"}
         %thead
           %tr
             %th 姓名
@@ -30,11 +30,29 @@
             %th 身份证号
             %th 淘宝ID
             %th 区域
+            %th 状态
         %tbody
           - @infos.each do |info|
+            - s = info.status == 1 ? '初始' : info.status == 2 ? '1688录入失败' : info.status == 3 ? '1688已录入' : info.status == 4 ? '设置离职初始' : info.status == 5 ? '1688已离职' : info.status == 6 ? '1688离职失败' : ''
+            - r = info.status == 2 || info.status == 6 ? info.reason : ''
             %tr
               %td #{info.name}
               %td #{info.phone}
               %td #{info.pcode}
               %td #{info.tbid}
               %td #{info.place}
+              %td 
+                #{s}
+                %br
+                #{r}
+          %tr
+            %td 
+            %td 
+            %td 
+            %td 
+            %td 
+              - if @page > 0
+                %a{href: "?page=#{@page-1}"} 上一页
+            %td
+              - if @infos.size >= 50
+                %a{href: "?page=#{@page+1}"} 下一页
