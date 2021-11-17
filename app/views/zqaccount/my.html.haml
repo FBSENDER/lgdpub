@@ -17,11 +17,23 @@
         %span.px-2 重置密码
         %i.icon.icon-arrow-right.float-right{style: "position:reltive;top:15px;margin-right:5px;"}
     %a.text-dark{href: "/zqaccount/sign_out/"}
-      .setting
+      .setting{style: "border-bottom:10px solid #F7F7F7;"}
         %i.icon.icon-shutdown
         %span.px-2 退出登录
         %i.icon.icon-arrow-right.float-right{style: "position:reltive;top:15px;margin-right:5px;"}
     .my-container.m-10.mt-2
+      %p{style: "margin: 0"} 
+        每页展示最多展示 50 条内容
+        - if @fail > 0
+          %a{href: "?page=#{@page}&fail=0"} 查看所有状态
+        - else
+          %a{href: "?page=#{@page}&fail=1"} 只看失败状态
+        %a.float-right{href: "/zqaccount/my_export?page=#{@page}&fail=#{@fail}", target: "_blank"} 导出本页
+      %p{style: "margin: 0"}
+        - if @page > 0
+          %a{href: "?page=#{@page-1}&fail=#{@fail}"} 上一页
+        - if @infos.size >= 50
+          %a{href: "?page=#{@page+1}&fail=#{@fail}"} 下一页
       %table.table{style: "margin-bottom: 80px;"}
         %thead
           %tr
@@ -45,14 +57,3 @@
                 #{s}
                 %br
                 #{r}
-          %tr
-            %td 
-            %td 
-            %td 
-            %td 
-            %td 
-              - if @page > 0
-                %a{href: "?page=#{@page-1}"} 上一页
-            %td
-              - if @infos.size >= 50
-                %a{href: "?page=#{@page+1}"} 下一页

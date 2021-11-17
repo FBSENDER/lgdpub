@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   root "ziliao#home"
 
   #zq
+  get "/zqaccount/my_export", to: "zqaccount#my_export", constraints: {host: 'z.lgdpub.com'}
   get "/zqaccount/sign_in", to: "zqaccount#sign_in", constraints: {host: 'z.lgdpub.com'}
   post "/zqaccount/sign_in", to: "zqaccount#do_sign_in", constraints: {host: 'z.lgdpub.com'}
   get "/zqaccount/sign_up", to: "zqaccount#sign_up", constraints: {host: 'z.lgdpub.com'}

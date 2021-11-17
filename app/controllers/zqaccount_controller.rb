@@ -139,11 +139,41 @@ class ZqaccountController < ApplicationController
       return
     end
     @page = params[:page].to_i || 0
+    @fail = params[:fail].to_i || 0
     @account = account
     @message = params[:message].nil? ? "" : params[:message]
-    @infos = ZqTask.where(created_user: @account.id).select(:id, :name, :phone, :pcode, :tbid, :place, :status, :reason).order("id desc").offset(50 * @page).limit(50)
+    if @fail > 0
+      @infos = ZqTask.where(created_user: @account.id, status: [2,6]).select(:id, :name, :phone, :pcode, :tbid, :place, :status, :reason).order("id desc").offset(50 * @page).limit(50)
+    else
+      @infos = ZqTask.where(created_user: @account.id).select(:id, :name, :phone, :pcode, :tbid, :place, :status, :reason).order("id desc").offset(50 * @page).limit(50)
+    end
     @tab = 2
     render "my", layout: "zq_application"
+  end
+
+  def my_export
+    unless account = is_login?
+      redirect_to action: :sign_in
+      return
+    end
+    @page = params[:page].to_i || 0
+    @fail = params[:fail].to_i || 0
+    @account = account
+    @message = params[:message].nil? ? "" : params[:message]
+    if @fail > 0
+      @infos = ZqTask.where(created_user: @account.id, status: [2,6]).select(:id, :name, :phone, :pcode, :tbid, :place, :status, :reason).order("id desc").offset(50 * @page).limit(50)
+    else
+      @infos = ZqTask.where(created_user: @account.id).select(:id, :name, :phone, :pcode, :tbid, :place, :status, :reason).order("id desc").offset(50 * @page).limit(50)
+    end
+    x = (Time.now.to_i + Random.rand(10000)).to_s
+    file = Rails.root.join('public').join("1688_export_#{x}.csv")
+    File.open(file, 'w') do |f|
+      f.puts "姓名,电话,身份证号,淘宝ID,区域,失败原因"
+      @infos.each do |o|
+        f.puts "#{o.name},#{o.phone},#{o.pcode},#{o.tbid},#{o.place},#{o.reason}"
+      end
+    end
+    send_file file
   end
 
   def sign_out
