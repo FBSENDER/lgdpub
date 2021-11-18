@@ -27,6 +27,46 @@ class ZqtaskController < ApplicationController
     render "create_info", layout: "zq_application"
   end
 
+  def batch_create_info
+    @message = params[:message].nil? ? "" : params[:message]
+    unless account = is_login?
+      redirect_to controller: :zqaccount, action: :sign_in, message: "请先登陆"
+      return
+    end
+    @account = account
+    @tab = 1
+    render "batch_create_info", layout: "zq_application"
+  end
+
+  def do_batch_create_info
+    unless account = is_login?
+      redirect_to controller: :zqaccount, action: :sign_in, message: "请先登陆"
+      return
+    end
+    begin
+      batch_text = params[:batch_text] || ""
+      rows = batch_text.split("\n")
+      if rows.size > 0 && rows.size <= 500
+        rows.each do |row|
+          r = row.split(',')
+          task = ZqTask.new
+          task.name = r[0]
+          task.phone = r[1]
+          task.pcode = r[2]
+          task.tbid = r[3]
+          task.place = r[4]
+          task.created_user = account.id
+          task.save
+        end
+      end
+      redirect_to controller: :zqaccount, action: :my
+    rescue
+      redirect_to action: :batch_create_info, message: "批量录入失败"
+    end
+  end
+
+
+
   def do_create_info
     unless account = is_login?
       redirect_to controller: :zqaccount, action: :sign_in, message: "请先登陆"

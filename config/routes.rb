@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   post "/zqaccount/profile", to: "zqaccount#update_profile", constraints: {host: 'z.lgdpub.com'}
   get "/zqaccount/send_code", to: "zqaccount#send_code", constraints: {host: 'z.lgdpub.com'}
   get "/zqtask/create_info", to: "zqtask#create_info", constraints: {host: 'z.lgdpub.com'}
+  get "/zqtask/batch_create_info", to: "zqtask#batch_create_info", constraints: {host: 'z.lgdpub.com'}
+  post "/zqtask/batch_create_info", to: "zqtask#do_batch_create_info", constraints: {host: 'z.lgdpub.com'}
   post "/zqtask/create_info", to: "zqtask#do_create_info", constraints: {host: 'z.lgdpub.com'}
   get "/zqtask/get_init_inofs", to: "zqtask#get_init_infos", constraints: {host: 'z.lgdpub.com'}
   get "/zqtask/update_infos", to: "zqtask#update_infos", constraints: {host: 'z.lgdpub.com'}

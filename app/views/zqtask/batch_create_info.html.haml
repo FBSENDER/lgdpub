@@ -1,0 +1,41 @@
+- title("批量录入信息")
+- head_desc("")
+- keywords("")
+
+.my-container.mt-2
+  .header 
+    %p 批量录入
+  .container
+    .columns
+      .col-9.col-mx-auto
+        = form_tag("/zqtask/batch_create_info", method: "post", onsubmit: "return batch_create_other_zq();") do 
+          %label.form-label 请按格式录入（使用','分割并按顺序），每条一行，最多500行
+          %textarea#batch_text.form-input{placeholder: "姓名,手机号,身份证号,淘宝ID,区域", rows: "10", name: "batch_text"}
+          #message.has-error{class: "#{@message.empty? ? 'hide' : ''}"}
+            %p.form-input-hint #{@message}
+          .m-2
+          %input.col-12.btn.btn-primary{type: "submit",value: "录入"}
+          .m-2
+          %a.col-12.btn.btn-primary{href: "/zqtask/create_info"} 单条录入
+        .m-2
+:javascript
+  var batch_create_other_zq = function(){
+    var t = $("#batch_text").val().trim();
+    if(t == ""){
+      alert("请输入信息");
+      return false;
+    }
+    var rows = t.split("\n");
+    if(rows.length >= 500){
+      alert("数据超过500行，请多次上传");
+      return false;
+    }
+    for(var i = 0; i < rows.length; i++){
+      var row = rows[i].split(',')
+      if(row.length != 5){
+        alert("第" + (i+1) + "行格式不正确,请使用','分割数据");
+        return false;
+      }
+    }
+    return true;
+  }
