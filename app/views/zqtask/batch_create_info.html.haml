@@ -10,7 +10,8 @@
       .col-9.col-mx-auto
         = form_tag("/zqtask/batch_create_info", method: "post", onsubmit: "return batch_create_other_zq();") do 
           %label.form-label 请按格式录入（使用','分割并按顺序），每条一行，最多500行
-          %textarea#batch_text.form-input{placeholder: "姓名,手机号,身份证号,淘宝ID,区域", rows: "10", name: "batch_text"}
+          %label.form-label 姓名,手机号,身份证号,淘宝ID,区域 
+          %textarea#batch_text.form-input{placeholder: "张三,13812341234,450203199504080111,tb666666,武汉市\n李四,15612341234,450203199504080310,tbxxxxxx,成都市", rows: "10", name: "batch_text"}
           #message.has-error{class: "#{@message.empty? ? 'hide' : ''}"}
             %p.form-input-hint #{@message}
           .m-2

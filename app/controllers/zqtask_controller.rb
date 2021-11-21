@@ -47,19 +47,25 @@ class ZqtaskController < ApplicationController
       batch_text = params[:batch_text] || ""
       rows = batch_text.split("\n")
       if rows.size > 0 && rows.size <= 500
+        redirect_to action: :batch_create_info, message: "批量录入进行中，请耐心等待"
         rows.each do |row|
           r = row.split(',')
           task = ZqTask.new
-          task.name = r[0]
-          task.phone = r[1]
-          task.pcode = r[2]
-          task.tbid = r[3]
-          task.place = r[4]
+          task.name = r[0].strip
+          task.phone = r[1].strip
+          task.pcode = r[2].strip
+          task.tbid = r[3].strip
+          task.place = r[4].strip
           task.created_user = account.id
           task.save
         end
+      else
+        if rows.size > 500
+          redirect_to action: :batch_create_info, message: "批量录入失败，超过500行"
+        else
+          redirect_to action: :batch_create_info, message: "请输入数据"
+        end
       end
-      redirect_to controller: :zqaccount, action: :my
     rescue
       redirect_to action: :batch_create_info, message: "批量录入失败"
     end
