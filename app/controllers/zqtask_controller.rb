@@ -47,7 +47,7 @@ class ZqtaskController < ApplicationController
       batch_text = params[:batch_text] || ""
       rows = batch_text.split("\n")
       if rows.size > 0 && rows.size <= 500
-        redirect_to action: :batch_create_info, message: "批量录入进行中，请耐心等待"
+        redirect_to controller: :zqaccount, action: :my, message: "批量录入进行中，请耐心等待"
         rows.each do |row|
           r = row.split(',')
           task = ZqTask.new

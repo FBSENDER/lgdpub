@@ -15,7 +15,10 @@
           #message.has-error{class: "#{@message.empty? ? 'hide' : ''}"}
             %p.form-input-hint #{@message}
           .m-2
-          %input.col-12.btn.btn-primary{type: "submit",value: "录入"}
+          %input#do_btn.col-12.btn.btn-primary{type: "submit",value: "录入"}
+          %button#doing_btn.col-12.btn.hide
+            录入中&nbsp;&nbsp;&nbsp;
+            %i.form-icon.loading
           .m-2
           %a.col-12.btn.btn-primary{href: "/zqtask/create_info"} 单条录入
         .m-2
@@ -38,5 +41,7 @@
         return false;
       }
     }
+    $("#do_btn").addClass("hide");
+    $("#doing_btn").removeClass("hide");
     return true;
   }

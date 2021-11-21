@@ -176,6 +176,39 @@ function create_other_zq(){
   var phone = $.trim($("#in_phone").val());
   var place = $.trim($("#in_place").val());
   var tbid = $.trim($("#in_tbid").val());
+  if(name == ""){
+    $("#message").children("p").html("请输入姓名");
+    $("#message").removeClass("hide");
+    return false;
+  }
+  if(phone == ""){
+    $("#message").children("p").html("请输入手机号");
+    $("#message").removeClass("hide");
+    return false;
+  }
+  if(phone != ""){
+    var r = check_phone(phone);
+    if(r != ""){
+      $("#message").children("p").html(r);
+      $("#message").removeClass("hide");
+      return false;
+    }
+  }
+  if(pcode == ""){
+    $("#message").children("p").html("请输入身份证号");
+    $("#message").removeClass("hide");
+    return false;
+  }
+  if(tbid == ""){
+    $("#message").children("p").html("请输入淘宝ID");
+    $("#message").removeClass("hide");
+    return false;
+  }
+  if(place == ""){
+    $("#message").children("p").html("请输入区域");
+    $("#message").removeClass("hide");
+    return false;
+  }
   return true;
 }
 function create_other(){
