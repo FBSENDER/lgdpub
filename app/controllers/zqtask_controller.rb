@@ -27,6 +27,58 @@ class ZqtaskController < ApplicationController
     render "create_info", layout: "zq_application"
   end
 
+  def do_create_info
+    unless account = is_login?
+      redirect_to controller: :zqaccount, action: :sign_in, message: "请先登陆"
+      return
+    end
+    begin
+      task = ZqTask.new
+      task.name = params[:name] || ""
+      task.phone = params[:phone] || ""
+      task.pcode = params[:pcode] || ""
+      task.tbid = params[:tbid] || ""
+      task.place = params[:place] || ""
+      task.created_user = account.id
+      task.save
+      redirect_to controller: :zqaccount, action: :my
+    rescue
+      redirect_to action: :create_info, message: "录入失败", name: params[:name], pcode: params[:pcode], place: params[:place], tbid: params[:tbid], phone: params[:phone]
+    end
+  end
+
+  def api_create_info
+    @message = params[:message].nil? ? "" : params[:message]
+    unless account = is_login?
+      redirect_to controller: :zqaccount, action: :sign_in, message: "请先登陆"
+      return
+    end
+    @account = account
+    @tab = 1
+    render "api_create_info", layout: "zq_application"
+  end
+
+  def do_api_create_info
+    begin
+      account = ZqAccount.where(token: params[:token]).take
+      if account.nil?
+        render json: {status: 0, message: "token不正确"}
+        return
+      end
+      task = ZqTask.new
+      task.name = params[:name] || ""
+      task.phone = params[:phone] || ""
+      task.pcode = params[:pcode] || ""
+      task.tbid = params[:tbid] || ""
+      task.place = params[:place] || ""
+      task.created_user = account.id
+      task.save
+      render json: {status: 1, message: "录入成功"}
+    rescue
+      render json: {status: 0, message: "录入失败"}
+    end
+  end
+
   def batch_create_info
     @message = params[:message].nil? ? "" : params[:message]
     unless account = is_login?
@@ -68,28 +120,6 @@ class ZqtaskController < ApplicationController
       end
     rescue
       redirect_to action: :batch_create_info, message: "批量录入失败"
-    end
-  end
-
-
-
-  def do_create_info
-    unless account = is_login?
-      redirect_to controller: :zqaccount, action: :sign_in, message: "请先登陆"
-      return
-    end
-    begin
-      task = ZqTask.new
-      task.name = params[:name] || ""
-      task.phone = params[:phone] || ""
-      task.pcode = params[:pcode] || ""
-      task.tbid = params[:tbid] || ""
-      task.place = params[:place] || ""
-      task.created_user = account.id
-      task.save
-      redirect_to controller: :zqaccount, action: :my
-    rescue
-      redirect_to action: :create_info, message: "录入失败", name: params[:name], pcode: params[:pcode], place: params[:place], tbid: params[:tbid], phone: params[:phone]
     end
   end
 

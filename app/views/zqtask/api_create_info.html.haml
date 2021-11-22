@@ -1,0 +1,24 @@
+- title("API录入信息")
+- head_desc("")
+- keywords("")
+
+.my-container.mt-2
+  .header 
+    %p API录入信息
+  .container
+    .columns
+      .col-9.col-mx-auto
+        %label.form-label 请求方法 POST
+        %label.form-label 请求地址 https://z.lgdpub.com/zqtask/api_create_info
+        %label.form-label 请求参数：
+        %label.form-label token=#{@account.token}
+        %label.form-label name=姓名
+        %label.form-label phone=手机号
+        %label.form-label pcode=身份证号
+        %label.form-label tbid=淘宝ID
+        %label.form-label place=区域
+        .m-2
+        %a.col-12.btn.btn-primary{href: "/zqtask/create_info"} 单条录入
+        .m-2
+        %a.col-12.btn.btn-primary{href: "/zqtask/batch_create_info"} 批量录入
+        .m-2
