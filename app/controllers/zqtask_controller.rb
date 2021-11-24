@@ -55,6 +55,12 @@ class ZqtaskController < ApplicationController
       return
     end
     @account = account
+    task = ZqTask.where(created_user: account.id).order("id desc").take
+    if task
+      @phone = task.phone
+    else
+      @phone = 123
+    end
     @tab = 1
     render "api_create_info", layout: "zq_application"
   end
@@ -142,6 +148,25 @@ class ZqtaskController < ApplicationController
       render json: {status: 1}
     rescue
       render json: {status: 0}
+    end
+  end
+
+  def sync_info
+    begin
+      account = ZqAccount.where(token: params[:token]).take
+      if account.nil?
+        render json: {status: 0, message: "token不正确"}
+        return
+      end
+      task = ZqTask.where(created_user: account.id, phone: params[:phone].strip).select(:name, :phone, :pcode, :tbid, :place, :status, :reason, :updated_at).to_a
+      if task.size.zero?
+        render json: {status: 0, message: "未查询到数据"}
+      else
+        d = task.map{|t| {name: t.name, phone: t.phone, pcode: t.pcode, tbid: t.tbid, place: t.place, sync_status: t.status == 1 ? '初始' : t.status == 2 ? "1688录入失败-#{t.reason}" : t.status == 3 ? '1688已录入' : t.status == 4 ? '设置离职初始' : t.status == 5 ? '1688已离职' : t.status == 6 ? '1688离职失败' : ''}}
+        render json: {status: 1, data: d}
+      end
+    rescue
+      render json: {status: 0, message: "同步失败"}
     end
   end
 end

@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   post "/zqtask/api_create_info", to: "zqtask#do_api_create_info", constraints: {host: 'z.lgdpub.com'}
   get "/zqtask/get_init_inofs", to: "zqtask#get_init_infos", constraints: {host: 'z.lgdpub.com'}
   get "/zqtask/update_infos", to: "zqtask#update_infos", constraints: {host: 'z.lgdpub.com'}
+  get "/zqtask/sync_info", to: "zqtask#sync_info", constraints: {host: 'z.lgdpub.com'}
 
 
   # ziliao
