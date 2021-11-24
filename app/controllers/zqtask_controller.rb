@@ -1,5 +1,6 @@
 require 'zqaccount'
 class ZqtaskController < ApplicationController
+  skip_before_action :verify_authenticity_token, only: [:do_api_create_info]
   def is_login?
     account = ZqAccount.where(id: cookies[:user_id].to_i, token: cookies[:token]).take
     if account.nil?
