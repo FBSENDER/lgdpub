@@ -67,7 +67,7 @@ class ZqtaskController < ApplicationController
 
   def do_api_create_info
     begin
-      account = ZqAccount.where(token: params[:token]).take
+      account = ZqAccount.where(dev_token: params[:token]).take
       if account.nil?
         render json: {status: 0, message: "token不正确"}
         return
@@ -153,7 +153,7 @@ class ZqtaskController < ApplicationController
 
   def sync_info
     begin
-      account = ZqAccount.where(token: params[:token]).take
+      account = ZqAccount.where(dev_token: params[:token]).take
       if account.nil?
         render json: {status: 0, message: "token不正确"}
         return

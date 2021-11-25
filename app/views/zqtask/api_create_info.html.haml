@@ -12,7 +12,7 @@
         %label.form-label 请求方法 POST
         %label.form-label 请求地址 http://z.lgdpub.com/zqtask/api_create_info
         %label.form-label 请求参数：
-        %label.form-label token=#{@account.token}
+        %label.form-label token=#{@account.dev_token}
         %label.form-label name=姓名
         %label.form-label phone=手机号
         %label.form-label pcode=身份证号
@@ -23,9 +23,9 @@
         %label.form-label 状态同步接口
         %label.form-label 请求方法GET
         %label.form-label
-          %a{href: "http://z.lgdpub.com/zqtask/sync_info?token=#{@account.token}&phone=#{@phone}", target: "_blank"} http://z.lgdpub.com/zqtask/sync_info?token=#{@account.token}&phone=#{@phone}
+          %a{href: "http://z.lgdpub.com/zqtask/sync_info?token=#{@account.dev_token}&phone=#{@phone}", target: "_blank"} http://z.lgdpub.com/zqtask/sync_info?token=#{@account.dev_token}&phone=#{@phone}
         %label.form-label 请求参数：
-        %label.form-label token=#{@account.token}
+        %label.form-label token=#{@account.dev_token}
         %label.form-label phone=手机号
         .m-2
         %a.col-12.btn.btn-primary{href: "/zqtask/create_info"} 单条录入

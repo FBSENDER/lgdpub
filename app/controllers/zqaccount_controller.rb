@@ -79,6 +79,7 @@ class ZqaccountController < ApplicationController
     account.password = lgdmd5(password)
     account.token = ""
     account.token_date = Time.now
+    account.dev_token = lgdmd5(Time.now.to_i)
     account.save
     redirect_to action: :sign_in, message: "注册成功，请登陆"
   end
