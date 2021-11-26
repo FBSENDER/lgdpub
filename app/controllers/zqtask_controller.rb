@@ -79,7 +79,7 @@ class ZqtaskController < ApplicationController
       task.tbid = params[:tbid] || ""
       task.place = params[:place] || ""
       task.created_user = account.id
-      task.original_id = params[:orignal_id] || ""
+      task.original_id = params[:original_id] || ""
       task.save
       render json: {status: 1, message: "录入成功"}
     rescue
