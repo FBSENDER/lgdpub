@@ -167,7 +167,7 @@ class ZqtaskController < ApplicationController
       if task.size.zero?
         render json: {status: 0, message: "未查询到数据"}
       else
-        d = task.map{|t| {name: t.name, phone: t.phone, pcode: t.pcode, tbid: t.tbid, place: t.place, status: t.status, sync_status: t.status == 1 ? '初始' : t.status == 2 ? "1688录入失败-#{t.reason}" : t.status == 3 ? '1688已录入' : t.status == 4 ? '设置离职初始' : t.status == 5 ? '1688已离职' : t.status == 6 ? '1688离职失败' : ''}}
+        d = task.map{|t| {name: t.name, phone: t.phone, pcode: t.pcode, tbid: t.tbid, place: t.place, status: t.status, sync_status: t.status == 1 ? '初始' : t.status == 2 ? "1688录入失败-#{t.reason}" : t.status == 3 ? '1688已录入' : t.status == 4 ? '设置离职初始' : t.status == 5 ? '1688已离职' : t.status == 6 ? '1688离职失败' : '', original_id: t.original_id}}
         render json: {status: 1, data: d}
       end
     rescue
