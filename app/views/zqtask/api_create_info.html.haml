@@ -18,17 +18,19 @@
         %label.form-label pcode=身份证号
         %label.form-label tbid=淘宝ID
         %label.form-label place=区域
+        %label.form-label original_id=原始数据id 可为空
         .m-2
         .m-2
         %label.form-label 状态同步接口
         %label.form-label 请求方法GET
         %label.form-label
-          %a{href: "http://z.lgdpub.com/zqtask/sync_info?token=#{@account.dev_token}&phone=#{@phone}", target: "_blank"} http://z.lgdpub.com/zqtask/sync_info?token=#{@account.dev_token}&phone=#{@phone}
+          %a{href: "http://z.lgdpub.com/zqtask/sync_info?token=#{@account.dev_token}&phone=#{@phone}&original_id=", target: "_blank"} http://z.lgdpub.com/zqtask/sync_info?token=#{@account.dev_token}&phone=#{@phone}&original_id=
         %label.form-label 请求参数：
         %label.form-label token=#{@account.dev_token}
         %label.form-label phone=手机号
+        %label.form-label original_id=原始数据id 可为空
         .m-2
         %a.col-12.btn.btn-primary{href: "/zqtask/create_info"} 单条录入
         .m-2
-        %a.col-12.btn.btn-primary{href: "/zqtask/batch_create_info"} 批量录入
+        %a.col-12.btn.btn-primary{href: "/zqtask/batch_create_info", style: "margin-bottom:100px;"} 批量录入
         .m-2

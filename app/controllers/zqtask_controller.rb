@@ -79,6 +79,7 @@ class ZqtaskController < ApplicationController
       task.tbid = params[:tbid] || ""
       task.place = params[:place] || ""
       task.created_user = account.id
+      task.original_id = params[:orignal_id] || ""
       task.save
       render json: {status: 1, message: "录入成功"}
     rescue
@@ -158,11 +159,15 @@ class ZqtaskController < ApplicationController
         render json: {status: 0, message: "token不正确"}
         return
       end
-      task = ZqTask.where(created_user: account.id, phone: params[:phone].strip).select(:name, :phone, :pcode, :tbid, :place, :status, :reason, :updated_at).to_a
+      if params[:original_id] && !params[:original_id].strip.empty?
+        task = ZqTask.where(created_user: account.id, phone: params[:phone].strip, original_id: params[:original_id].strip).select(:name, :phone, :pcode, :tbid, :place, :status, :reason, :updated_at, :original_id).to_a
+      else
+        task = ZqTask.where(created_user: account.id, phone: params[:phone].strip).select(:name, :phone, :pcode, :tbid, :place, :status, :reason, :updated_at, :original_id).to_a
+      end
       if task.size.zero?
         render json: {status: 0, message: "未查询到数据"}
       else
-        d = task.map{|t| {name: t.name, phone: t.phone, pcode: t.pcode, tbid: t.tbid, place: t.place, sync_status: t.status == 1 ? '初始' : t.status == 2 ? "1688录入失败-#{t.reason}" : t.status == 3 ? '1688已录入' : t.status == 4 ? '设置离职初始' : t.status == 5 ? '1688已离职' : t.status == 6 ? '1688离职失败' : ''}}
+        d = task.map{|t| {name: t.name, phone: t.phone, pcode: t.pcode, tbid: t.tbid, place: t.place, status: t.status, sync_status: t.status == 1 ? '初始' : t.status == 2 ? "1688录入失败-#{t.reason}" : t.status == 3 ? '1688已录入' : t.status == 4 ? '设置离职初始' : t.status == 5 ? '1688已离职' : t.status == 6 ? '1688离职失败' : ''}}
         render json: {status: 1, data: d}
       end
     rescue
