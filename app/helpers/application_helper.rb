@@ -20,4 +20,8 @@ module ApplicationHelper
   def h1(h1)
     content_for :h1, h1
   end
+
+  def ld_json(json)
+    content_for :ld_json, json
+  end
 end

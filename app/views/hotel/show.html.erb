@@ -2,6 +2,7 @@
 <% head_desc(@description) %>
 <% keywords(@page_keywords) %>
 <% path(@path) %>
+<% ld_json(@ld_json.to_json.html_safe)%>
 
 <header class="col-12" style="background-color:#003580;color:#fff;height:40px;line-height:40px;text-align:center;">
   <a href="/" style="color:#fff;">滴滴住宿 - Booking</a>
@@ -11,11 +12,28 @@
     <div class="col-12">
       <h1 style="font-size:20px;padding:5px 10px;margin:0;color:#111;"><%= @hotel.hotel_name%> 酒店公寓预订</h1>
       <p style="padding:5px 10px;margin:0;font-size:12px;color:#999;">地址：<%= @hotel.address %></p>
+      <p style="padding:5px 10px;margin:0;font-size:12px;color:#999;">住宿类型：<%= @hotel.hotel_type %></p>
       <p style="padding:5px 10px;margin:0;font-size:12px;color:#999;">特色设施：<%= @hotel.important_facilities.split('|||').join(' ') %></p>
-      <% @hotel.hotel_desc.split("\n").each do |desc| %>
+      <% @hotel.hotel_desc.split("|||").each do |desc| %>
         <p style="padding:5px 10px;margin:0;font-size:14px;color:#333;"><%= desc %></p>
       <% end %>
       <a class="btn btn-success" style="background-color:#07c;border-color:#07c;margin:20px 5%;width:90%;" href="https://www.booking.com<%= @hotel.url_path%>?aid=895887">去 Booking.com 预订</a>
+
+      <nav style="padding:5px 10px;margin:0;font-size:14px;color:#333;">
+        <a href="/">首页</a>
+        >
+        <a href="/hotel_country/<%= @hotel.country_short%>/"><%= @hotel.country_name%>酒店预订</a>
+        >
+        <% if @hotel.region_short != "" %>
+          <a href="/hotel_region/<%= @hotel.region_short%>/"><%= @hotel.region_name%>酒店预订</a>
+          >
+        <% end %>
+        <% if @hotel.city_short != "" %>
+          <a href="/hotel_city/<%= @hotel.city_short%>/"><%= @hotel.city_name%>酒店预订</a>
+          >
+        <% end %>
+        <span><%= @hotel.hotel_name %></span>
+      </nav>
       <h2 style="padding:5px 10px;margin:0;font-size:16px;color:#111;">推荐预订理由：</h2>
       <% @hotel.reasons.split("|||").each do |desc| %>
         <p style="padding:5px 10px;margin:0;font-size:14px;color:#333;"><%= desc %></p>
@@ -26,7 +44,7 @@
           <amp-img src="<%= image %>" width="500" height="300"></amp-img>
         <% end %>
       </amp-carousel>
-      <h2 style="padding:5px 10px;margin:0;font-size:16px;color:#111;"><%= @hotel.country_name%>-<%= @hotel.region_name%> - <%= @hotel.city_name%> 更多酒店公寓推荐：</h2>
+      <h2 style="padding:5px 10px;margin:0;font-size:16px;color:#111;"><%= @hotel.country_name%> - <%= @hotel.region_name%> - <%= @hotel.city_name%> 更多<%= @hotel.hotel_type %>推荐：</h2>
       <% @related_hotels.each do |h| %>
         <p style="padding: 5px 10px;margin:0;font-size:14px;color:#333;">
           <a href="/hotel/<%= h.url_path_md5 %>/"><%= h.hotel_name%></a>
@@ -37,5 +55,5 @@
   </div>
 </article>
 <footer style="text-align:center;font-size:12px;padding: 20px 10px;color:#999;">
-  滴滴住宿 - 为您提供<%= @hotel.hotel_name %>酒店公寓预订服务
+  滴滴住宿 - 为您提供<%= @hotel.hotel_name %><%= @hotel.hotel_type%>预订服务
 </footer>

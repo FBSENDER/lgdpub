@@ -30,4 +30,9 @@ class ApplicationController < ActionController::Base
     raise ActionController::RoutingError.new('NOT FOUND')
   end
 
+  def is_robot?
+    user_agent = request.headers["HTTP_USER_AGENT"]
+    user_agent.present? && user_agent =~ /(bot|spider|slurp)/i
+  end
+
 end

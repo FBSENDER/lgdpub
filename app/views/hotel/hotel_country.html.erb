@@ -7,10 +7,16 @@
 <article class="container" style="max-width:1200px;margin: 0 auto;min-height:500px;background-color:#f6f6f6;padding-bottom: 20px;">
   <div class="columns">
     <div class="col-12">
-      <h1 style="font-size:20px;padding:5px 10px;margin:0;color:#111;">滴滴住宿 - 酒店公寓列表</h1>
-      <% @countries.each do |c| %>
+      <h1 style="font-size:20px;padding:5px 10px;margin:0;color:#111;"><%= @hotel.country_name %> - 酒店公寓列表</h1>
+      <% @regions.each do |c| %>
+        <% next if c.region_short.empty? %>
         <p style="padding: 5px 10px;margin:0;font-size:14px;color:#333;">
-          <a href="/hotel_country/<%= c.country_short %>/"><%= c.country_name %>酒店公寓预订</a>
+          <a href="/hotel_region/<%= c.region_short %>/"><%= c.region_name %>酒店公寓预订</a>
+        </p>
+      <% end %>
+      <% @cities.each do |c| %>
+        <p style="padding: 5px 10px;margin:0;font-size:14px;color:#333;">
+          <a href="/hotel_city/<%= c.city_short %>/"><%= c.city_name %>酒店公寓预订</a>
         </p>
       <% end %>
       <% @related_hotels.each do |h| %>

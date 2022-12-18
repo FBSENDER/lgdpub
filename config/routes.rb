@@ -46,5 +46,8 @@ Rails.application.routes.draw do
 
   # hotel
   get "/hotel/:md5", to: "hotel#show"
+  get "/hotel_country/:country_short", to: "hotel#hotel_country"
+  get "/hotel_region/:region_short", to: "hotel#hotel_region"
+  get "/hotel_city/:city_short", to: "hotel#hotel_city"
   get ':controller(/:action(/:id))'
 end
