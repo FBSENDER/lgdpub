@@ -16,6 +16,16 @@
         <amp-img src="<%= h.images.split("|||")[0] %>" width="500" height="300"></amp-img>
       <% end %>
     </div>
+    <h2 style="padding:5px 10px;margin:0;font-size:16px;color:#111;">随便看看</h2>
+    <% @rand_hotels.each do |h| %>
+      <div class="col-12">
+        <a href="/hotel/<%= h.url_path_md5 %>/">
+          <h3 style="font-size:14px;padding:5px 10px;margin:0;color:#111;"><%= h.hotel_name%></h1>
+        </a>
+        <p style="padding:5px 10px;margin:0;font-size:12px;color:#999;"><%= h.address %></p>
+        <amp-img src="<%= h.images.split("|||")[0] %>" width="500" height="300"></amp-img>
+      </div>
+    <% end %>
   </div>
 </article>
 <footer style="text-align:center;font-size:12px;padding: 20px 10px;color:#999;margin-bottom:40px;">

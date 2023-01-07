@@ -86,6 +86,7 @@ class HotelController < ApplicationController
     else
       @cities = []
     end
+    @rand_hotels = Hotel.where("id > ?", rand(123930)).limit(10).select(:url_path_md5, :hotel_name, :address, :images)
     render "hotel/hotel_country", layout: "layouts/amp_hotel"
   end
 
@@ -101,6 +102,7 @@ class HotelController < ApplicationController
     @path = "/hotel_region/#{@hotel.region_short}/"
     @related_hotels = Hotel.where(region_short: @hotel.region_short).limit(50).select(:url_path_md5, :hotel_name, :address, :images)
     @cities = Hotel.where(region_short: @hotel.region_short).select(:city_short, :city_name).distinct
+    @rand_hotels = Hotel.where("id > ?", rand(123930)).limit(10).select(:url_path_md5, :hotel_name, :address, :images)
     render "hotel/hotel_region", layout: "layouts/amp_hotel"
   end
 
@@ -115,6 +117,7 @@ class HotelController < ApplicationController
     @description = "滴滴住宿全球公寓民宿预订平台！提供#{@hotel.city_name}特色住宿，酒店式公寓、短租日租公寓、家庭旅馆、特色民宿在线预订。民宿价格查询，酒店地址电话查询及在线预订。"
     @path = "/hotel_city/#{@hotel.city_short}/"
     @related_hotels = Hotel.where(city_short: @hotel.city_short).limit(50).select(:url_path_md5, :hotel_name, :address, :images)
+    @rand_hotels = Hotel.where("id > ?", rand(123930)).limit(10).select(:url_path_md5, :hotel_name, :address, :images)
     render "hotel/hotel_city", layout: "layouts/amp_hotel"
   end
 
