@@ -14,7 +14,9 @@ class HotelController < ApplicationController
     if @hotel.nil?
       not_found
     end
-    @related_hotels = Hotel.where(city_short: @hotel.city_short, hotel_type: @hotel.hotel_type).where("id > ?", @hotel.id).order(:id).limit(10).select(:url_path_md5, :hotel_name)
+    @related_hotels = Hotel.where(city_short: @hotel.city_short, hotel_type: @hotel.hotel_type).where("id > ?", @hotel.id).order(:id).limit(10).select(:url_path_md5, :hotel_name).to_a
+    @related_hotels = Hotel.where(country_short: @hotel.country_short, hotel_type: @hotel.hotel_type).where("id > ?", @hotel.id).order(:id).limit(10).select(:url_path_md5, :hotel_name) if @related_hotels.size.zero?
+    @rand_hotels = Hotel.where("id > ?", rand(123930)).limit(10).select(:url_path_md5, :hotel_name, :address, :images)
     @title = @hotel.hotel_name + "图片信息-特色简介-地图位置-酒店公寓预订"
     @page_keywords = "#{@hotel.hotel_name},#{@hotel.hotel_name}图片,#{@hotel.hotel_name}简介,#{@hotel.hotel_name}位置,#{@hotel.hotel_name}预订,#{@hotel.hotel_name}预定"
     @description = "滴滴住宿为您推荐位于#{@hotel.address}的酒店-#{@hotel.hotel_name}，可以查看其地图位置、图片、简介以及更多详细信息。"
@@ -77,7 +79,7 @@ class HotelController < ApplicationController
     @page_keywords = '民宿预订,住宿预订,滴滴住宿,家庭旅馆,台湾民宿,日本民宿,韩国民宿,泰国民宿,短租公寓,旅馆预订,宾馆预订,酒店预订'
     @description = "滴滴住宿全球公寓民宿预订平台！提供#{@hotel.country_name}特色住宿，酒店式公寓、短租日租公寓、家庭旅馆、特色民宿在线预订。民宿价格查询，酒店地址电话查询及在线预订。"
     @path = "/hotel_country/#{@hotel.country_short}/"
-    @related_hotels = Hotel.where(country_short: @hotel.country_short).limit(50).select(:url_path_md5, :hotel_name)
+    @related_hotels = Hotel.where(country_short: @hotel.country_short).limit(50).select(:url_path_md5, :hotel_name, :address, :images)
     @regions = Hotel.where(country_short: @hotel.country_short).select(:region_short, :region_name).distinct
     if @regions.size.zero?
       @cities = Hotel.where(country_short: @hotel.country_short).select(:city_short, :city_name).distinct
@@ -97,7 +99,7 @@ class HotelController < ApplicationController
     @page_keywords = '民宿预订,住宿预订,滴滴住宿,家庭旅馆,台湾民宿,日本民宿,韩国民宿,泰国民宿,短租公寓,旅馆预订,宾馆预订,酒店预订'
     @description = "滴滴住宿全球公寓民宿预订平台！提供#{@hotel.region_name}特色住宿，酒店式公寓、短租日租公寓、家庭旅馆、特色民宿在线预订。民宿价格查询，酒店地址电话查询及在线预订。"
     @path = "/hotel_region/#{@hotel.region_short}/"
-    @related_hotels = Hotel.where(region_short: @hotel.region_short).limit(50).select(:url_path_md5, :hotel_name)
+    @related_hotels = Hotel.where(region_short: @hotel.region_short).limit(50).select(:url_path_md5, :hotel_name, :address, :images)
     @cities = Hotel.where(region_short: @hotel.region_short).select(:city_short, :city_name).distinct
     render "hotel/hotel_region", layout: "layouts/amp_hotel"
   end
@@ -112,7 +114,7 @@ class HotelController < ApplicationController
     @page_keywords = '民宿预订,住宿预订,滴滴住宿,家庭旅馆,台湾民宿,日本民宿,韩国民宿,泰国民宿,短租公寓,旅馆预订,宾馆预订,酒店预订'
     @description = "滴滴住宿全球公寓民宿预订平台！提供#{@hotel.city_name}特色住宿，酒店式公寓、短租日租公寓、家庭旅馆、特色民宿在线预订。民宿价格查询，酒店地址电话查询及在线预订。"
     @path = "/hotel_city/#{@hotel.city_short}/"
-    @related_hotels = Hotel.where(city_short: @hotel.city_short).limit(50).select(:url_path_md5, :hotel_name)
+    @related_hotels = Hotel.where(city_short: @hotel.city_short).limit(50).select(:url_path_md5, :hotel_name, :address, :images)
     render "hotel/hotel_city", layout: "layouts/amp_hotel"
   end
 

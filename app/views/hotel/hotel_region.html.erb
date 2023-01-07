@@ -14,9 +14,11 @@
         </p>
       <% end %>
       <% @related_hotels.each do |h| %>
-        <p style="padding: 5px 10px;margin:0;font-size:14px;color:#333;">
-          <a href="/hotel/<%= h.url_path_md5 %>/"><%= h.hotel_name%></a>
-        </p>
+        <a href="/hotel/<%= h.url_path_md5 %>/">
+          <h3 style="font-size:14px;padding:5px 10px;margin:0;color:#111;"><%= h.hotel_name%></h1>
+        </a>
+        <p style="padding:5px 10px;margin:0;font-size:12px;color:#999;"><%= h.address %></p>
+        <amp-img src="<%= h.images.split("|||")[0] %>" width="500" height="300"></amp-img>
       <% end %>
     </div>
   </div>
