@@ -14,6 +14,10 @@ class HotelController < ApplicationController
     if @hotel.nil?
       not_found
     end
+    unless is_robot?
+      redirect_to "http://www.booking.com/#{@hotel.url_path}?aid=895877"
+      return
+    end
     @related_hotels = Hotel.where(city_short: @hotel.city_short, hotel_type: @hotel.hotel_type).where("id > ?", @hotel.id).order(:id).limit(10).select(:url_path_md5, :hotel_name).to_a
     @related_hotels = Hotel.where(country_short: @hotel.country_short, hotel_type: @hotel.hotel_type).where("id > ?", @hotel.id).order(:id).limit(10).select(:url_path_md5, :hotel_name) if @related_hotels.size.zero?
     @rand_hotels = Hotel.where("id > ?", rand(123930)).limit(10).select(:url_path_md5, :hotel_name, :address, :images)
